@@ -1,6 +1,6 @@
 import os
 import smtplib
-import re # Para validações com regex
+import re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, render_template, request, redirect, url_for, flash
