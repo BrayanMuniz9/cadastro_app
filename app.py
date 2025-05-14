@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, render_template, request, redirect, url_for, flash
 from dotenv import load_dotenv
-from datetime import datetime # Para validar datas
+from datetime import datetime
 
 load_dotenv()
 
