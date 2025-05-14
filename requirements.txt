@@ -1,0 +1,3 @@
+Flask
+python-dotenv
+requests # Para o backend se precisar chamar alguma API (não estritamente necessário aqui se o JS faz tudo)

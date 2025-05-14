@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Cadastro de Pessoa Física</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+        .container { border: 1px solid #ddd; padding: 20px; border-radius: 5px; background-color: #f9f9f9; }
+        h2 { color: #0056b3; }
+        h4 { color: #333; margin-top: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px;}
+        strong { color: #555; }
+        p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Novo Cadastro de Pessoa Física Recebido</h2>
+
+        <h4>Dados Pessoais</h4>
+        <p><strong>Nome Completo:</strong> {{ data.nome_completo }}</p>
+        <p><strong>CPF:</strong> {{ data.cpf }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ data.data_nascimento }}</p>
+        <p><strong>Estado Civil:</strong> {{ data.estado_civil }}</p>
+        <p><strong>Nacionalidade:</strong> {{ data.nacionalidade }}</p>
+        <p><strong>Nome da Mãe:</strong> {{ data.nome_mae }}</p>
+
+        <h4>Contato</h4>
+        <p><strong>Email:</strong> {{ data.email }}</p>
+        <p><strong>Telefone Celular:</strong> {{ data.tel_celular }}</p>
+        <p><strong>Telefone Comercial:</strong> {{ data.tel_comercial | default('Não informado', true) }}</p>
+
+        <h4>Documentos</h4>
+        <p><strong>RG:</strong> {{ data.rg }}</p>
+        <p><strong>Órgão Emissor:</strong> {{ data.orgao_emissor }}</p>
+        <p><strong>Data de Emissão RG:</strong> {{ data.data_emissao_rg }}</p>
+
+        <h4>Informações Profissionais</h4>
+        <p><strong>Profissão:</strong> {{ data.profissao }}</p>
+        <p><strong>Remuneração:</strong> R$ {{ "%.2f"|format(data.remuneracao|float) }}</p>
+
+        <h4>Veículo</h4>
+         <p><strong>Placa do Carro:</strong> {{ data.placa_carro }}</p>
+         <p><strong>Modelo:</strong> {{ data.modelo_carro }}</p>
+         <p><strong>Cor:</strong> {{ data.cor_carro }}</p>
+         <p><strong>Ano:</strong> {{ data.ano_carro }}</p>
+
+        <h4>Endereço</h4>
+        <p><strong>CEP:</strong> {{ data.cep }}</p>
+        <p><strong>Endereço:</strong> {{ data.endereco }}</p>
+        <p><strong>Número:</strong> {{ data.numero }}</p>
+        <p><strong>Complemento:</strong> {{ data.complemento | default('Não informado', true) }}</p>
+        <p><strong>Bairro:</strong> {{ data.bairro }}</p>
+        <p><strong>Cidade:</strong> {{ data.cidade }}</p>
+        <p><strong>Estado:</strong> {{ data.estado }}</p>
+    </div>
+</body>
+</html>

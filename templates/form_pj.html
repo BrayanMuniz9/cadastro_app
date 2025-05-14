@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Pessoa Física</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts - Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" href="{{ url_for('static', filename='images/logoant.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='js/inputmask.min.js') }}"></script>
+</head>
+<body>
+    <div class="main-content"> <!-- INÍCIO DO WRAPPER DE CONTEÚDO PRINCIPAL -->
+        <nav class="navbar navbar-light navbar-custom shadow-sm mb-4">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <!-- O CSS : .navbar-custom .navbar-brand img já define height e width: auto -->
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="d-inline-block align-text-top">
+                    <!-- Removido width e height daqui, pois o CSS controla -->
+                    Sistema de Cadastro
+                </a>
+            </div>
+        </nav>
+
+        <div class="container mb-5"> <!-- Removido mt-5, mb-5 já está bom -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Cadastro de Pessoa Jurídica</h2>
+                </div>
+                <div class="card-body">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                {% endwith %}
+
+                    <form action="{{ url_for('enviar_cadastro_pj') }}" method="POST" id="cadastroFormPJ">
+                        <!-- Dados da Empresa -->
+                        <h4>Dados da Empresa</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="razaoSocial" class="form-label">Razão Social *</label>
+                                <input type="text" class="form-control" id="razaoSocial" name="razao_social" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nomeFantasia" class="form-label">Nome Fantasia</label>
+                                <input type="text" class="form-control" id="nomeFantasia" name="nome_fantasia">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="cnpj" class="form-label">CNPJ *</label>
+                                <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="dataAbertura" class="form-label">Data de Abertura *</label>
+                                <input type="date" class="form-control" id="dataAbertura" name="data_abertura" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inscricaoEstadual" class="form-label">Inscrição Estadual</label>
+                                <input type="text" class="form-control" id="inscricaoEstadual" name="inscricao_estadual" placeholder="Opcional">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                             <div class="col-md-12">
+                                 <label for="ramoAtividade" class="form-label">Ramo de Atividade *</label>
+                                 <input type="text" class="form-control" id="ramoAtividade" name="ramo_atividade" required>
+                             </div>
+                        </div>
+
+
+                        <!-- Contato -->
+                        <h4>Contato</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="emailEmpresa" class="form-label">Email da Empresa *</label>
+                                <input type="email" class="form-control" id="emailEmpresa" name="email_empresa" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="confirmeEmailEmpresa" class="form-label">Confirme Email *</label>
+                                <input type="email" class="form-control" id="confirmeEmailEmpresa" name="confirme_email_empresa" required>
+                                <div class="invalid-feedback" id="emailMismatchErrorPJ" style="display: none;">
+                                    Os emails não correspondem.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="telComercialEmpresa" class="form-label">Telefone Comercial *</label>
+                                <input type="tel" class="form-control" id="telComercialEmpresa" name="tel_comercial_empresa" placeholder="(00) 0000-0000" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="telCelularContato" class="form-label">Telefone Celular</label>
+                                <input type="tel" class="form-control" id="telCelularContato" name="tel_celular_contato" placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+
+                        <!-- Veículo -->
+                        <h4>Veículo</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="placaCarroPJ" class="form-label">Placa *</label>
+                                <input type="text" class="form-control" id="placaCarroPJ" name="placa_carro_pj" placeholder="AAA-0A00 ou AAA0000" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="modeloCarroPJ" class="form-label">Modelo *</label>
+                                <input type="text" class="form-control" id="modeloCarroPJ" name="modelo_carro_pj" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="corCarroPJ" class="form-label">Cor *</label>
+                                <input type="text" class="form-control" id="corCarroPJ" name="cor_carro_pj" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="anoCarroPJ" class="form-label">Ano *</label>
+                                <input type="text" class="form-control" id="anoCarroPJ" name="ano_carro_pj" placeholder="AAAA" required>
+                            </div>
+                        </div>
+
+                        <!-- Endereço -->
+                        <h4>Endereço da Empresa</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="cepEmpresa" class="form-label">CEP *</label>
+                                <input type="text" class="form-control" id="cepEmpresa" name="cep_empresa" placeholder="00000-000" required>
+                            </div>
+                             <div class="col-md-7">
+                                <label for="enderecoEmpresa" class="form-label">Endereço *</label>
+                                <input type="text" class="form-control" id="enderecoEmpresa" name="endereco_empresa" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="numeroEmpresa" class="form-label">Número *</label>
+                                <input type="text" class="form-control" id="numeroEmpresa" name="numero_empresa" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="complementoEmpresa" class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="complementoEmpresa" name="complemento_empresa">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bairroEmpresa" class="form-label">Bairro *</label>
+                                <input type="text" class="form-control" id="bairroEmpresa" name="bairro_empresa" required>
+                            </div>
+                             <div class="col-md-3">
+                                <label for="cidadeEmpresa" class="form-label">Cidade *</label>
+                                <input type="text" class="form-control" id="cidadeEmpresa" name="cidade_empresa" required>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="estadoEmpresa" class="form-label">UF *</label>
+                                <input type="text" class="form-control" id="estadoEmpresa" name="estado_empresa" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 mt-4">Enviar Cadastro</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> <!-- FIM DO WRAPPER DE CONTEÚDO PRINCIPAL -->
+
+    {% include '_footer.html' %} <!-- INCLUINDO O RODAPÉ -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
