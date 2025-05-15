@@ -41,7 +41,8 @@
                         {% endif %}
                     {% endwith %}
 
-                    <form action="{{ url_for('enviar_cadastro_pf') }}" method="POST" id="cadastroFormPF" {{ csrf_token() }}>
+                    <form action="{{ url_for('enviar_cadastro_pf') }}" method="POST" id="cadastroFormPF">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <!-- Dados Pessoais -->
                         <h4>Dados Pessoais</h4>
                         <div class="row mb-3">

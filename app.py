@@ -14,6 +14,7 @@ load_dotenv()
 # Configuração básica de logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
 
+
 app = Flask(__name__)
 csrf = CSRFProtect(app) # Proteção CSRF inicializada
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'configure_uma_secret_key_forte_no_seu_env_para_producao')
