@@ -45,7 +45,7 @@
                         {% endif %}
                 {% endwith %}
 
-                    <form action="{{ url_for('enviar_cadastro_pj') }}" method="POST" id="cadastroFormPJ">
+                    <form action="{{ url_for('enviar_cadastro_pj') }}" method="POST" id="cadastroFormPJ" {{ csrf_token() }}>
                         <!-- Dados da Empresa -->
                         <h4>Dados da Empresa</h4>
                         <div class="row mb-3">

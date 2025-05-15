@@ -1,0 +1,16 @@
+{% extends "base_layout.html" %}
+
+{% block title %}Erro Interno do Servidor{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-1 text-light">500</h1>
+            <h2 class="mb-4 text-light">Oops! Algo deu errado.</h2>
+            <p class="lead text-muted-light mb-4">Nossa equipe foi notificada e está trabalhando para corrigir o problema. Por favor, tente novamente mais tarde.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">Voltar para o Início</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
