@@ -1,21 +1,19 @@
 /* static/style.css */
 :root {
-    --primary-blue: #0a2342;        /* Azul escuro principal (fundo do body) */
-    --secondary-blue: #004e92;      /* Azul para cards de seleção, navbar, rodapé */
-    --light-blue: #0077cc;          /* Azul para links e destaques nos cards de seleção */
-    
-    --ice-white: #f0f8ff;           /* Branco Gelo - um branco com um leve tom azulado */
-    --input-text-dark: #212529;     /* Texto escuro para inputs/botões claros */
-    --button-hover-bg: #e6f2ff;     /* Hover um pouco mais escuro para branco gelo */
-    --button-border: #cce0ff;       /* Borda sutil para botões branco gelo */
-
-    --accent-color: #f0ad4e;        /* Cor de destaque (ex: laranja/amarelo) - mantida */
+    --primary-blue: #0a2342;
+    --secondary-blue: #004e92;
+    --light-blue: #0077cc;
+    --ice-white: #f0f8ff;
+    --input-text-dark: #212529;
+    --button-hover-bg: #e6f2ff;
+    --button-border: #cce0ff;
+    --accent-color: #f0ad4e;
     --light-gray: #f8f9fa;
     --medium-gray: #e9ecef;
     --dark-gray: #343a40;
     --text-light: #ffffff;
     --text-dark: #212529;
-    --text-muted-light: #adb5bd; 
+    --text-muted-light: #adb5bd;
 }
 
 body {
@@ -32,33 +30,28 @@ body {
     flex-grow: 1;
 }
 
-
-/* Estilos para a página de seleção (index.html) */
 .index-page .selection-container {
     padding-top: 5vh;
     padding-bottom: 5vh;
-    max-width: 900px; /* Aumentado um pouco para dar espaço à logo maior */
+    max-width: 900px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
-.logo-img { /* Logo na página INDEX */
-    max-height: 150px; /* AUMENTADO SIGNIFICATIVAMENTE - Ajuste conforme necessário */
+.logo-img {
+    max-height: 150px;
     width: auto;
-    max-width: 90%; 
+    max-width: 90%;
     object-fit: contain;
-    margin-bottom: 25px; 
+    margin-bottom: 25px;
 }
 
-/* ... (outros estilos do index.html permanecem os mesmos, como h1, lead, selection-card) ... */
 .selection-card .fa-user,
 .selection-card .fa-building {
-    color: var(--ice-white);
+    color: var(--ice-white); /* Mantido como branco, bom contraste no card azul */
 }
 
-
-/* Estilos para os formulários (form_pf.html, form_pj.html) */
 .navbar-custom {
     background-color: var(--secondary-blue) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -67,36 +60,35 @@ body {
 .navbar-custom .navbar-brand {
     color: var(--text-light) !important;
     font-weight: 500;
-    display: flex; /* Para alinhar a logo e o texto */
-    align-items: center; /* Para alinhar a logo e o texto */
+    display: flex;
+    align-items: center;
 }
 .navbar-custom .navbar-brand:hover {
     color: var(--light-blue) !important;
 }
-.navbar-custom .navbar-brand img { /* Logo na NAVBAR */
-    filter: brightness(0) invert(1); /* Se a logo original for escura */
-    height: 40px; /* AUMENTADO - Ajuste conforme sua logo */
-    width: auto;  /* Mantém proporção */
-    margin-right: 10px; /* Espaço entre logo e texto */
+.navbar-custom .navbar-brand img {
+    filter: brightness(0) invert(1);
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
 }
 
-
-.card { /* Card dos formulários */
+.card {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 05px;
+    border-radius: 5px; /* Estava 05px, corrigido para 5px */
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    background-color: var(--secondary-blue); /* Mantém o card azul */
+    background-color: var(--secondary-blue);
     color: var(--text-light);
     margin-top: 20px;
     margin-bottom: 30px;
 }
 
-.card-header { /* Cabeçalho do card do formulário */
+.card-header {
     background-color: var(--primary-blue);
     color: var(--text-light);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 10px; /* Mantido para consistência visual */
+    border-top-right-radius: 10px; /* Mantido para consistência visual */
     padding: 1rem 1.5rem;
 }
 .card-header h2 {
@@ -107,19 +99,18 @@ body {
 
 .form-label {
     font-weight: 500;
-    color: var(--text-muted-light); /* Texto do label ainda claro sobre o fundo azul do card */
+    color: var(--text-muted-light);
 }
 
-/* CAMPOS DE FORMULÁRIO COM FUNDO BRANCO GELO */
 .form-control, .form-select {
     border-radius: 6px;
-    background-color: var(--ice-white); /* FUNDO BRANCO GELO */
-    color: var(--input-text-dark);      /* TEXTO ESCURO DENTRO DO INPUT */
-    border: 1px solid var(--button-border); /* Borda sutil */
+    background-color: var(--ice-white);
+    color: var(--input-text-dark);
+    border: 1px solid var(--button-border);
     padding: 0.5rem 0.75rem;
 }
 .form-control::placeholder {
-  color: #6c757d; /* Cinza para placeholder em fundo claro */
+  color: #6c757d;
   opacity: 1; 
 }
 .form-control:-ms-input-placeholder {
@@ -130,31 +121,60 @@ body {
 }
 
 .form-control:focus, .form-select:focus {
-    background-color: #ffffff; /* Pode ficar branco puro no foco */
+    background-color: #ffffff;
     border-color: var(--light-blue);
-    box-shadow: 0 0 0 0.2rem rgba(0, 119, 204, 0.3);
+    box-shadow: 0 0 0 0.2rem rgba(0, 119, 204, 0.25); /* Ajustado para 0.25 para ser mais sutil, como nos inputs */
     color: var(--input-text-dark);
 }
 
 .form-select {
-    /* Ajusta a cor da seta do select para fundos claros */
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 }
 
 .form-select option {
-    background-color: #ffffff; /* Fundo das opções do select */
-    color: var(--input-text-dark); /* Texto das opções do select */
+    background-color: #ffffff;
+    color: var(--input-text-dark);
 }
 
-/* BOTÕES COM FUNDO BRANCO GELO */
+/* ### ADICIONADO/MODIFICADO: Estilo para form-check (radios e checkboxes) ### */
+.form-check-label {
+    color: var(--text-muted-light); /* Garante que o texto do label seja claro */
+    font-weight: normal; /* Labels de check/radio geralmente não são bold */
+}
+
+/* Se quiser customizar mais a aparência do check/radio em si: */
+/*
+.form-check-input {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+.form-check-input:checked {
+    background-color: var(--light-blue);
+    border-color: var(--light-blue);
+}
+.form-check-input:focus {
+    border-color: var(--light-blue);
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+*/
+
+/* Estilo para o link dos termos dentro do label */
+.form-check-label a {
+    color: var(--ice-white); /* Usar branco gelo para destacar mais que o muted-light */
+    text-decoration: underline;
+    font-weight: 500; /* Um pouco mais de destaque */
+}
+.form-check-label a:hover {
+    color: var(--light-blue); /* Azul claro no hover */
+}
+
+
 .btn {
     border-radius: 6px;
     padding: 0.6rem 1.2rem;
     font-weight: 500;
     transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease, color 0.2s ease;
 }
-
-/* Botão primário (ex: Voltar para o início na página de sucesso) */
 .btn-primary { 
     background-color: var(--light-blue);
     border-color: var(--light-blue);
@@ -165,30 +185,24 @@ body {
     border-color: #005ca8;
     color: var(--text-light);
 }
-
-/* Botão de Enviar (Success) - AGORA BRANCO GELO */
 .btn-success { 
     background-color: var(--ice-white);
     border-color: var(--button-border);
-    color: var(--primary-blue); /* Texto azul escuro para contraste */
+    color: var(--primary-blue);
 }
 .btn-success:hover {
     background-color: var(--button-hover-bg);
     border-color: #b3d7ff;
     color: var(--secondary-blue);
 }
-
 .btn:active {
     transform: scale(0.98);
 }
 
-
-/* Alertas - mantidos como antes para clareza */
 .alert {
     border-radius: 6px;
     color: var(--text-dark);
 }
-/* ... (estilos de alerta .alert-success, .alert-danger, etc., permanecem) ... */
 .alert-success {
     background-color: #d1e7dd;
     border-color: #badbcc;
@@ -210,7 +224,6 @@ body {
     color: #664d03;
 }
 
-/* Rodapé - mantido como antes */
 .footer {
     background-color: var(--secondary-blue);
     color: var(--text-muted-light);
@@ -218,23 +231,19 @@ body {
     margin-top: auto;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
-/* ... (outros estilos do rodapé permanecem os mesmos) ... */
 .footer h5 {
     color: var(--text-light);
     margin-bottom: 15px;
     font-weight: 500;
 }
-
 .footer p, .footer a {
     color: var(--text-muted-light);
     font-size: 0.9rem;
 }
-
 .footer a:hover {
     color: var(--light-blue);
     text-decoration: none;
 }
-
 .footer .social-icons a {
     display: inline-block;
     color: var(--text-muted-light);
@@ -247,12 +256,10 @@ body {
     margin-right: 10px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .footer .social-icons a:hover {
     background-color: var(--light-blue);
     color: var(--text-light);
 }
-
 .footer .copyright {
     text-align: center;
     margin-top: 30px;
@@ -261,20 +268,18 @@ body {
     font-size: 0.85rem;
 }
 
-/* Estilos para a página de sucesso */
 .success-page .alert {
     margin-top: 5vh;
-    background-color: var(--ice-white); /* Fundo do alerta branco gelo */
+    background-color: var(--ice-white);
     border-color: var(--button-border);
-    color: var(--input-text-dark); /* Texto escuro no alerta */
+    color: var(--input-text-dark);
 }
 .success-page .alert-heading {
-    color: var(--primary-blue); /* Título do alerta em azul escuro */
+    color: var(--primary-blue);
 }
 .success-page .fas.fa-check-circle {
-    color: #28a745; /* Ícone de check verde */
+    color: #28a745;
 }
-/* Para o link dentro do alerta de sucesso */
 .success-page .alert a.btn-primary {
     background-color: var(--light-blue);
     border-color: var(--light-blue);
@@ -284,17 +289,23 @@ body {
     background-color: var(--secondary-blue);
     border-color: var(--secondary-blue);
 }
-.custom-invalid-feedback {
+
+.custom-invalid-feedback, .group-invalid-feedback { /* Aplicado a ambos */
     width: 100%;
     margin-top: .25rem;
     font-size: .875em;
-    color: #f6a8a8; /* Um vermelho mais claro para texto sobre fundo azul */
-    /* Ou use a cor de erro padrão do Bootstrap se preferir: */
-    /* color: #dc3545;  */
+    color: #f5c6cb; /* Cor de erro mais clara para fundo escuro */
+    /* Ou a que você tinha: color: #f6a8a8; */
+}
+.form-control.is-invalid + .custom-invalid-feedback,
+.form-select.is-invalid + .custom-invalid-feedback,
+.form-check-input.is-invalid ~ .custom-invalid-feedback { /* Para feedback após o label do check/radio */
+    display: block;
+}
+.group-invalid-feedback {
+    display: block; /* Garante que o feedback do grupo seja exibido */
 }
 
-/* Ajuste para o espaçamento quando o feedback está presente */
-.form-control.is-invalid + .custom-invalid-feedback,
-.form-select.is-invalid + .custom-invalid-feedback {
-    display: block; /* Mostra o feedback */
+.text-muted-light {
+    color: white;
 }

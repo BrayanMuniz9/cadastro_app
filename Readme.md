@@ -1,6 +1,6 @@
 # Sistema de Cadastro de Clientes (PF/PJ)
 
-Este é um sistema de cadastro de clientes web desenvolvido com Flask (Python) para o backend e HTML, CSS, e JavaScript (com Bootstrap e Inputmask.js) para o frontend. O sistema permite o cadastro de Pessoas Físicas (PF) e Pessoas Jurídicas (PJ), coleta diversas informações e envia os dados por email.
+Este é um sistema de cadastro de clientes web desenvolvido com Flask (Python) para o backend e HTML, CSS, e JavaScript (com Bootstrap e Inputmask.js) para o frontend. O sistema permite o cadastro de Pessoas Físicas (PF) e Pessoas Jurídicas (PJ), coleta diversas informações e envia os dados por email. A aplicação foi preparada com foco em segurança básica para implantação.
 
 ## Funcionalidades
 
@@ -12,8 +12,10 @@ Este é um sistema de cadastro de clientes web desenvolvido com Flask (Python) p
 *   Máscaras de input para campos como CPF, CNPJ, CEP, Telefone, Placa.
 *   Busca automática de endereço ao preencher o CEP (API ViaCEP).
 *   Campos de veículo (Placa, Modelo, Cor, Ano) preenchidos manualmente.
+*   Proteção CSRF implementada.
 *   Envio dos dados do formulário por email para um destinatário configurado.
 *   Interface estilizada com tema azul escuro.
+*   Logging básico e páginas de erro customizadas (404, 500).
 
 ## Pré-requisitos
 
@@ -21,7 +23,7 @@ Este é um sistema de cadastro de clientes web desenvolvido com Flask (Python) p
 *   pip (gerenciador de pacotes Python)
 *   Um servidor SMTP configurado para envio de emails (ex: Gmail com "Senha de App")
 
-## Configuração do Ambiente
+## Configuração do Ambiente Local para Desenvolvimento
 
 1.  **Clone o Repositório (ou copie os arquivos):**
     Se o projeto estiver em um repositório Git:
@@ -46,92 +48,63 @@ Este é um sistema de cadastro de clientes web desenvolvido com Flask (Python) p
         ```
 
 3.  **Instale as Dependências:**
-    Com o ambiente virtual ativado, instale as bibliotecas Python necessárias listadas no arquivo `requirements.txt`:
+    Com o ambiente virtual ativado, instale as bibliotecas Python necessárias:
     ```bash
-    pip install -r requirements.txt
-    ```
-    Se o arquivo `requirements.txt` não existir, crie-o com o seguinte conteúdo e depois execute o comando `pip install`:
-    ```txt
-    Flask
-    python-dotenv
-    requests
+    python -m pip install -r requirements.txt
     ```
 
-4.  **Configure as Variáveis de Ambiente (Credenciais de Email):**
+4.  **Configure as Variáveis de Ambiente (Credenciais de Email e Chave Secreta):**
     *   Crie um arquivo chamado `.env` na pasta raiz do projeto (`cadastro_app/.env`).
     *   Adicione as seguintes variáveis ao arquivo `.env`, substituindo pelos seus próprios valores:
 
         ```env
+        FLASK_SECRET_KEY=sua_chave_secreta_longa_aleatoria_e_segura_aqui
         EMAIL_HOST_USER=seu_email@exemplo.com
         EMAIL_HOST_PASSWORD=sua_senha_de_email_ou_senha_de_app
         EMAIL_RECEIVER=email_destino_dos_cadastros@exemplo.com
         ```
+        *   `FLASK_SECRET_KEY`: Uma string longa, aleatória e secreta. Use `python -c "import secrets; print(secrets.token_hex(32))"` para gerar uma.
         *   `EMAIL_HOST_USER`: O endereço de email que será usado para enviar os cadastros.
-        *   `EMAIL_HOST_PASSWORD`: A senha do email acima. **Importante:** Se usar Gmail, você precisará gerar uma "Senha de App". Vá para sua Conta Google -> Segurança -> Senhas de app. Não use sua senha principal do Gmail aqui.
-        *   `EMAIL_RECEIVER`: O endereço de email que receberá os dados dos formulários preenchidos.
+        *   `EMAIL_HOST_PASSWORD`: A senha do email acima. **Importante:** Se usar Gmail, gere uma "Senha de App".
+        *   `EMAIL_RECEIVER`: O endereço de email que receberá os dados dos formulários.
 
-    *   **Nota de Segurança:** O arquivo `.env` contém informações sensíveis. Certifique-se de que ele **não seja enviado para repositórios públicos** (adicione `.env` ao seu arquivo `.gitignore`).
+    *   **Nota de Segurança:** O arquivo `.env` contém informações sensíveis. Adicione `.env` ao seu arquivo `.gitignore` para não enviá-lo para repositórios públicos.
 
-## Como Executar a Aplicação
+## Como Executar Localmente para Desenvolvimento
 
-1.  **Certifique-se de que o ambiente virtual está ativado.** (Você verá `(venv)` no início do seu prompt de comando).
-2.  **Navegue até a pasta raiz do projeto** (`cadastro_app`) no seu terminal, se ainda não estiver lá.
-3.  **Execute o servidor Flask:**
+1.  **Certifique-se de que o ambiente virtual está ativado.**
+2.  **Navegue até a pasta raiz do projeto** (`cadastro_app`).
+3.  **Execute o servidor Flask de desenvolvimento:**
+    Você pode rodar diretamente o `app.py` (se ele tiver `app.run(debug=True)` no final) ou o `wsgi.py` (se você configurou `app.run(debug=True)` nele para desenvolvimento).
+    Exemplo usando `app.py` (assumindo que você descomentou e ajustou `app.run` para debug):
     ```bash
     python app.py
     ```
+    Ou, se `wsgi.py` está configurado para rodar com debug:
+    ```bash
+    python wsgi.py
+    ```
 4.  **Acesse a Aplicação no Navegador:**
     Abra seu navegador web e vá para o endereço:
-    [http://127.0.0.1:5001](http://127.0.0.1:5001)
+    [http://127.0.0.1:5001](http://127.0.0.1:5001) (ou a porta que você configurou).
 
-    (A porta padrão é `5001` conforme configurado em `app.py`. Se você alterou, use a porta correspondente).
+## Preparação para Produção
+
+O código foi preparado com as seguintes considerações de segurança e boas práticas para produção:
+*   Carregamento da `SECRET_KEY` a partir de variáveis de ambiente.
+*   Proteção CSRF habilitada.
+*   Logging básico implementado.
+*   Handlers para erros 404 e 500.
+
+Para implantar em um ambiente de produção, siga estas etapas gerais (os detalhes variam conforme a plataforma de hospedagem):
+
+1.  **Escolha um Servidor de Aplicação WSGI:** Gunicorn é recomendado. Adicione `gunicorn` ao `requirements.txt`.
+2.  **Use um Proxy Reverso:** Nginx ou Apache são comuns. Eles servirão arquivos estáticos e encaminharão requisições dinâmicas para o Gunicorn.
+3.  **Configure HTTPS (SSL/TLS):** Essencial para segurança. Use Let's Encrypt com Certbot para certificados gratuitos.
+4.  **Gerenciador de Processos:** Use `systemd` (ou similar) para garantir que sua aplicação Gunicorn rode continuamente.
+5.  **Variáveis de Ambiente no Servidor:** Configure `FLASK_SECRET_KEY`, `EMAIL_HOST_USER`, etc., diretamente no ambiente do servidor de produção, em vez de depender de um arquivo `.env` (embora alguns setups de `systemd` possam carregar de um arquivo `.env`).
+6.  **NÃO execute com `debug=True` em produção.**
+
+O arquivo `wsgi.py` (`from app import app`) serve como ponto de entrada para o Gunicorn.
 
 ## Estrutura do Projeto
-
-/cadastro_app
-app.py # Lógica do backend Flask e rotas
-.env # Credenciais de email (NÃO versionar)
-requirements.txt # Dependências Python
-/static # Arquivos estáticos (CSS, JS, Imagens)
-/css
-style.css
-/js
-inputmask.min.js # Biblioteca de máscara
-script.js # JavaScript customizado
-/images
-logo.png
-favicon.ico
-/templates # Arquivos HTML (Jinja2 templates)
-index.html
-form_pf.html
-form_pj.html
-success.html
-_footer.html # Parcial do rodapé
-email_template_pf.html
-email_template_pj.html
-
-## Tecnologias Utilizadas
-
-*   **Backend:**
-    *   Python
-    *   Flask (Framework web)
-    *   python-dotenv (Para carregar variáveis de ambiente)
-*   **Frontend:**
-    *   HTML5
-    *   CSS3
-    *   JavaScript
-    *   Bootstrap 5 (Framework CSS)
-    *   Inputmask.js (Para máscaras de input)
-    *   Font Awesome (Ícones)
-    *   Google Fonts (Poppins)
-*   **APIs Externas (Frontend):**
-    *   ViaCEP (Para preenchimento de endereço)
-
-## Possíveis Melhorias Futuras
-
-*   Persistência de dados em um banco de dados (ex: SQLite, PostgreSQL).
-*   Autenticação de usuários.
-*   Validações mais complexas no backend.
-*   Testes unitários e de integração.
-*   Melhorias na interface do usuário e experiência.
-*   Tratamento de erros mais robusto.

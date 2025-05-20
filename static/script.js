@@ -8,11 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- FUNÇÕES AUXILIARES ---
     function validateEmail(emailInput, confirmeEmailInput, errorDisplayElement) {
         if (!emailInput || !confirmeEmailInput || !errorDisplayElement) {
-            // Se algum dos elementos não existir na página atual, não faz nada ou retorna true
-            // console.warn("Elementos de validação de email ausentes:", emailInput, confirmeEmailInput, errorDisplayElement);
             return true;
         }
-
         if (emailInput.value !== confirmeEmailInput.value && confirmeEmailInput.value !== '') {
             errorDisplayElement.style.display = 'block';
             confirmeEmailInput.classList.add('is-invalid');
@@ -51,12 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
             cepInput.addEventListener('blur', function() {
                 const cepVal = cepInput.inputmask ? cepInput.inputmask.unmaskedvalue() : cepInput.value.replace(/\D/g, '');
                 if (cepVal.length > 0 && cepVal.length < 8) {
-                    // alert('CEP inválido. Deve conter 8 dígitos.'); // Pode ser muito intrusivo
                     cepInput.classList.add('is-invalid');
                 } else if (cepVal.length === 8 && document.getElementById(logradouroFieldId) && document.getElementById(logradouroFieldId).value === '') {
-                    // alert('CEP não encontrado ou dados de endereço indisponíveis.');
                     cepInput.classList.add('is-invalid');
-                } else if (cepVal.length === 8 || cepVal.length === 0) { // Válido ou vazio
+                } else if (cepVal.length === 8 || cepVal.length === 0) {
                     cepInput.classList.remove('is-invalid');
                 }
             });
@@ -66,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateAndSubmit(form, event, isPJ = false) {
         event.preventDefault();
         let isValid = true;
-        const errors = []; // Array para armazenar mensagens de erro, se precisar exibi-las de outra forma
+        const errors = [];
 
         form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
         form.querySelectorAll('.custom-invalid-feedback').forEach(el => el.remove());
@@ -75,33 +70,80 @@ document.addEventListener('DOMContentLoaded', function () {
             if (field) {
                 field.classList.add('is-invalid');
                 let feedback = field.parentElement.querySelector('.custom-invalid-feedback');
-                if (!feedback) {
+                if (!feedback && field.type !== 'checkbox' && field.type !== 'radio') { // Não adicionar para checkbox/radio se o label já indica
                     feedback = document.createElement('div');
-                    feedback.className = 'custom-invalid-feedback';
-                    field.parentElement.appendChild(feedback);
+                    feedback.className = 'custom-invalid-feedback d-block'; // d-block para mostrar
+                    // Tentar inserir após o input, ou no final do parent se não for direto
+                    if(field.nextSibling) field.parentNode.insertBefore(feedback, field.nextSibling);
+                    else field.parentElement.appendChild(feedback);
+                } else if (feedback) {
+                    feedback.style.display = 'block';
                 }
-                feedback.textContent = message;
+                if(feedback) feedback.textContent = message;
+
+                // Para checkboxes e radios, o erro pode ser mais genérico ou associado ao grupo
+                 if ((field.type === 'checkbox' || field.type === 'radio') && field.parentElement.classList.contains('form-check')) {
+                    // Poderia adicionar uma classe de erro ao label ou um texto de erro após o grupo
+                    // Por agora, o addClass('is-invalid') no input já pode ser usado pelo CSS
+                    // Para feedback visual em radios/checkboxes, pode ser melhor adicionar um span de erro
+                    let groupErrorElement = field.closest('.mb-3, .col-md-6, .col-md-12').querySelector('.group-invalid-feedback');
+                    if(!groupErrorElement){
+                        groupErrorElement = document.createElement('div');
+                        groupErrorElement.className = 'custom-invalid-feedback d-block group-invalid-feedback';
+                        // Adiciona o erro ao final do contêiner do grupo de radios/checkbox
+                        field.closest('.mb-3, .col-md-6, .col-md-12').appendChild(groupErrorElement);
+                    }
+                    groupErrorElement.textContent = message; // Mostra a mensagem de erro para o grupo
+                }
             }
-            errors.push(message); // Adiciona ao array de erros
+            if (!errors.includes(message)) { // Evita mensagens duplicadas no array de log
+                errors.push(message);
+            }
             isValid = false;
         }
         
-        // Revalida emails no submit
+        // Limpar group-invalid-feedback antes de revalidar
+        form.querySelectorAll('.group-invalid-feedback').forEach(el => el.remove());
+
+
         if (isPJ) {
             if (!validateEmail(form.querySelector('#emailEmpresa'), form.querySelector('#confirmeEmailEmpresa'), form.querySelector('#emailMismatchErrorPJ'))) {
-                // addError já é chamado dentro de validateEmail se houver erro e o elemento de erro existir
+                isValid = false; // validateEmail já lida com addClass is-invalid
             }
         } else {
             if (!validateEmail(form.querySelector('#email'), form.querySelector('#confirmeEmail'), form.querySelector('#emailMismatchError'))) {
-                // addError já é chamado
+                isValid = false;
             }
         }
 
         form.querySelectorAll('[required]').forEach(input => {
-            if (!input.value.trim()) {
+            let fieldHasValue = true;
+            if (input.type === 'checkbox') {
+                if (!input.checked) fieldHasValue = false;
+            } else if (input.type === 'radio') {
+                const radioGroup = form.querySelectorAll(`input[name="${input.name}"]`);
+                if (!Array.from(radioGroup).some(radio => radio.checked)) {
+                    // Se nenhum radio no grupo está checado E este é o primeiro do grupo a ser validado
+                    // Adiciona erro apenas uma vez por grupo
+                    if (!errors.some(err => err.includes(input.labels[0].textContent.replace('*','').trim() || input.name))) {
+                         addError(input, `O campo "${input.labels[0].textContent.replace('*','').trim() || input.name}" é obrigatório.`);
+                    }
+                    fieldHasValue = false; // Marcar como inválido para o isValid geral, mas o addError específico é mais complexo para grupos
+                }
+            } else if (input.type === 'file') {
+                if (input.files.length === 0) fieldHasValue = false;
+            }
+            else if (!input.value.trim()) {
+                fieldHasValue = false;
+            }
+
+            if (!fieldHasValue) {
                 const labelElement = input.labels && input.labels.length > 0 ? input.labels[0] : input.previousElementSibling;
                 const labelText = labelElement ? labelElement.textContent.replace('*','').trim() : input.name;
-                addError(input, `O campo "${labelText}" é obrigatório.`);
+                // Para radios, a mensagem pode ser genérica para o grupo, tratada acima
+                if (input.type !== 'radio') { // Evita duplicar mensagem de erro para radios
+                    addError(input, `O campo "${labelText}" é obrigatório.`);
+                }
             }
         });
 
@@ -122,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        if (!isPJ) { // Validações específicas PF
+        if (!isPJ) {
             const cpfInput = form.querySelector('#cpf');
             if (cpfInput && cpfInput.value) {
                 const cpf = cpfInput.inputmask ? cpfInput.inputmask.unmaskedvalue() : cpfInput.value.replace(/\D/g, '');
@@ -132,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (remuneracaoInput && remuneracaoInput.value && isNaN(parseFloat(remuneracaoInput.value))) {
                 addError(remuneracaoInput, 'Remuneração inválida.');
             }
-        } else { // Validações específicas PJ
+        } else {
             const cnpjInput = form.querySelector('#cnpj');
             if (cnpjInput && cnpjInput.value) {
                 const cnpj = cnpjInput.inputmask ? cnpjInput.inputmask.unmaskedvalue() : cnpjInput.value.replace(/\D/g, '');
@@ -140,12 +182,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        if (errors.length === 0) { // Verifica se o array de erros está vazio
+        if (isValid && errors.length === 0) {
             form.submit();
         } else {
             const firstInvalidField = form.querySelector('.is-invalid');
-            if (firstInvalidField) firstInvalidField.focus();
-            // alert("Por favor, corrija os erros indicados no formulário.");
+            if (firstInvalidField) {
+                 firstInvalidField.focus();
+                 // Rolar para o primeiro campo inválido se estiver fora da tela
+                 firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            // alert("Por favor, corrija os erros indicados no formulário."); // Desabilitado para focar no feedback visual
         }
     } // Fim validateAndSubmit
 
@@ -207,4 +253,26 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error("Inputmask NÃO está definido! Não foi possível aplicar máscaras.");
     }
+
+    // ### ADICIONADO: Feedback para nome de arquivo (opcional) ###
+    // Este código tenta encontrar um elemento de feedback customizado.
+    // Você precisaria adicionar algo como <span class="file-name-feedback ms-2"></span> ao lado do seu input de arquivo no HTML
+    // para que este código atualize esse span.
+    document.querySelectorAll('input[type="file"]').forEach(fileInput => {
+        fileInput.addEventListener('change', function(event) {
+            const feedbackElement = this.parentElement.querySelector('.file-name-feedback'); // Procura por um elemento irmão com esta classe
+            if (event.target.files.length > 0) {
+                const fileName = event.target.files[0].name;
+                console.log("Arquivo selecionado:", fileName);
+                if (feedbackElement) {
+                    feedbackElement.textContent = fileName;
+                }
+            } else {
+                if (feedbackElement) {
+                    feedbackElement.textContent = ""; // Limpa se nenhum arquivo for selecionado
+                }
+            }
+        });
+    });
+    // ### FIM da adição ###
 });

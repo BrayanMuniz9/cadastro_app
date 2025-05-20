@@ -2,47 +2,74 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Novo Cadastro de Pessoa Jurídica</title>
+    <title>Novo Cadastro de Pessoa Jurídica - CLA Rastreamento</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
-        .container { border: 1px solid #ddd; padding: 20px; border-radius: 5px; background-color: #f9f9f9; }
-        h2 { color: #0056b3; }
-        h4 { color: #333; margin-top: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px;}
-        strong { color: #555; }
-        p { margin: 5px 0; }
+        body { font-family: Arial, sans-serif; margin: 20px; color: #333; background-color: #f4f4f4; padding: 0;}
+        .email-wrapper { max-width: 700px; margin: 20px auto; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        .email-header { background-color: #0a2342; color: #ffffff; padding: 20px; border-top-left-radius: 8px; border-top-right-radius: 8px; text-align: center;}
+        .email-header h2 { margin: 0; font-size: 24px; }
+        .email-content { padding: 25px; }
+        .email-content h4 { color: #004e92; margin-top: 25px; border-bottom: 2px solid #eef1f5; padding-bottom: 8px; font-size: 18px;}
+        .email-content h4:first-child { margin-top: 0; }
+        .email-content p { margin: 8px 0; line-height: 1.6; font-size: 15px; }
+        .email-content strong { color: #333; font-weight: 600; }
+        .email-footer { text-align: center; font-size: 0.85em; color: #777; padding: 20px; border-top: 1px solid #eee; background-color: #f9f9f9; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;}
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Novo Cadastro de Pessoa Jurídica Recebido</h2>
+    <div class="email-wrapper">
+        <div class="email-header">
+            <h2>Novo Cadastro de Pessoa Jurídica Recebido</h2>
+        </div>
+        <div class="email-content">
+            <h4>Dados da Empresa</h4>
+            <p><strong>Razão Social:</strong> {{ data.razao_social | default('Não informado', true) }}</p>
+            <p><strong>Nome Fantasia:</strong> {{ data.nome_fantasia | default('Não informado', true) }}</p>
+            <p><strong>CNPJ:</strong> {{ data.cnpj | default('Não informado', true) }}</p>
+            <p><strong>Data de Abertura:</strong> {{ data.data_abertura | default('Não informado', true) }}</p>
+            <p><strong>Inscrição Estadual:</strong> {{ data.inscricao_estadual | default('Não informada', true) }}</p>
+            <p><strong>Ramo de Atividade:</strong> {{ data.ramo_atividade | default('Não informado', true) }}</p>
+            <!-- ### ADICIONADO: Informação do Documento Anexado PJ ### -->
+            {% if data.documento_anexo_pj_nome %}
+            <p><strong>Documento da Empresa Anexado:</strong> Sim (Nome do arquivo: {{ data.documento_anexo_pj_nome }}) - <em>Verifique o anexo neste email.</em></p>
+            {% else %}
+            <p><strong>Documento da Empresa Anexado:</strong> Não</p>
+            {% endif %}
 
-        <h4>Dados da Empresa</h4>
-        <p><strong>Razão Social:</strong> {{ data.razao_social }}</p>
-        <p><strong>Nome Fantasia:</strong> {{ data.nome_fantasia | default('Não informado', true) }}</p>
-        <p><strong>CNPJ:</strong> {{ data.cnpj }}</p>
-        <p><strong>Data de Abertura:</strong> {{ data.data_abertura }}</p>
-        <p><strong>Inscrição Estadual:</strong> {{ data.inscricao_estadual | default('Não informada', true) }}</p>
-        <p><strong>Ramo de Atividade:</strong> {{ data.ramo_atividade }}</p>
+            <h4>Contato</h4>
+            <p><strong>Email da Empresa:</strong> {{ data.email_empresa | default('Não informado', true) }}</p>
+            <p><strong>Telefone Comercial:</strong> {{ data.tel_comercial_empresa | default('Não informado', true) }}</p>
+            <p><strong>Telefone Celular (Contato):</strong> {{ data.tel_celular_contato | default('Não informado', true) }}</p>
 
-        <h4>Contato</h4>
-        <p><strong>Email da Empresa:</strong> {{ data.email_empresa }}</p>
-        <p><strong>Telefone Comercial:</strong> {{ data.tel_comercial_empresa }}</p>
-        <p><strong>Telefone Celular (Contato):</strong> {{ data.tel_celular_contato | default('Não informado', true) }}</p>
+            <h4>Veículo</h4>
+            <p><strong>Placa:</strong> {{ data.placa_carro_pj | default('Não informado', true) }}</p>
+            <p><strong>Modelo:</strong> {{ data.modelo_carro_pj | default('Não informado', true) }}</p>
+            <p><strong>Cor:</strong> {{ data.cor_carro_pj | default('Não informado', true) }}</p>
+            <p><strong>Ano:</strong> {{ data.ano_carro_pj | default('Não informado', true) }}</p>
 
-        <h4>Veículo</h4>
-        <p><strong>Placa:</strong> {{ data.placa_carro_pj }}</p>
-        <p><strong>Modelo:</strong> {{ data.modelo_carro_pj }}</p>
-        <p><strong>Cor:</strong> {{ data.cor_carro_pj }}</p>
-        <p><strong>Ano:</strong> {{ data.ano_carro_pj }}</p>
+            <h4>Endereço da Empresa</h4>
+            <p><strong>CEP:</strong> {{ data.cep_empresa | default('Não informado', true) }}</p>
+            <p><strong>Endereço:</strong> {{ data.endereco_empresa | default('Não informado', true) }}</p>
+            <p><strong>Número:</strong> {{ data.numero_empresa | default('Não informado', true) }}</p>
+            <p><strong>Complemento:</strong> {{ data.complemento_empresa | default('Não informado', true) }}</p>
+            <p><strong>Bairro:</strong> {{ data.bairro_empresa | default('Não informado', true) }}</p>
+            <p><strong>Cidade:</strong> {{ data.cidade_empresa | default('Não informado', true) }}</p>
+            <p><strong>Estado:</strong> {{ data.estado_empresa | default('Não informado', true) }}</p>
 
-        <h4>Endereço da Empresa</h4>
-        <p><strong>CEP:</strong> {{ data.cep_empresa }}</p>
-        <p><strong>Endereço:</strong> {{ data.endereco_empresa }}</p>
-        <p><strong>Número:</strong> {{ data.numero_empresa }}</p>
-        <p><strong>Complemento:</strong> {{ data.complemento_empresa | default('Não informado', true) }}</p>
-        <p><strong>Bairro:</strong> {{ data.bairro_empresa }}</p>
-        <p><strong>Cidade:</strong> {{ data.cidade_empresa }}</p>
-        <p><strong>Estado:</strong> {{ data.estado_empresa }}</p>
+            <!-- ### ADICIONADO: Seção de Pagamento PJ ### -->
+            <h4>Informações de Pagamento (PJ)</h4>
+            <p><strong>Forma de Pagamento:</strong> {{ data.forma_pagamento_pj | default('Não selecionada', true) }}</p>
+            <p><strong>Melhor Data para Pagamento:</strong> Dia {{ data.melhor_data_pagamento_pj | default('N/A', true) }}</p>
+
+            <!-- ### ADICIONADO: Seção de Termos Contratuais PJ ### -->
+            <h4>Termos Contratuais (PJ)</h4>
+            <p><strong>Li e aceito os termos contratuais:</strong> {{ 'Sim' if data.aceite_termos_pj == 'sim' else 'Não' }}</p>
+        </div>
+        <div class="email-footer">
+            <p>Este é um email automático do Sistema de Cadastro CLA.</p>
+            <p>© <span id="emailYearPJ"></span> CLA Rastreamento. Todos os direitos reservados.</p>
+            <!-- Script de ano não funcionará bem em emails, idealmente remova ou passe do backend -->
+        </div>
     </div>
 </body>
 </html>

@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Título da Página de Pessoa Jurídica -->
     <title>Cadastro Pessoa Jurídica</title> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts - Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="icon" href="{{ url_for('static', filename='images/logoant.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -44,51 +41,63 @@
                         {% endif %}
                     {% endwith %}
 
-                    <form action="{{ url_for('enviar_cadastro_pj') }}" method="POST" id="cadastroFormPJ">
+                    <!-- ### MODIFICADO: Adicionado enctype para upload ### -->
+                    <form action="{{ url_for('enviar_cadastro_pj') }}" method="POST" id="cadastroFormPJ" enctype="multipart/form-data">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
                         <!-- Dados da Empresa -->
                         <h4>Dados da Empresa</h4>
+                        <!-- ... (campos de Dados da Empresa existentes, adicionando value="{{ form_data.nome_do_campo if form_data else '' }}") ... -->
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="razaoSocial" class="form-label">Razão Social *</label>
-                                <input type="text" class="form-control" id="razaoSocial" name="razao_social" required>
+                                <input type="text" class="form-control" id="razaoSocial" name="razao_social" value="{{ form_data.razao_social if form_data else '' }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="nomeFantasia" class="form-label">Nome Fantasia</label>
-                                <input type="text" class="form-control" id="nomeFantasia" name="nome_fantasia">
+                                <input type="text" class="form-control" id="nomeFantasia" name="nome_fantasia" value="{{ form_data.nome_fantasia if form_data else '' }}">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="cnpj" class="form-label">CNPJ *</label>
-                                <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
+                                <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" value="{{ form_data.cnpj if form_data else '' }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="dataAbertura" class="form-label">Data de Abertura *</label>
-                                <input type="date" class="form-control" id="dataAbertura" name="data_abertura" required>
+                                <input type="date" class="form-control" id="dataAbertura" name="data_abertura" value="{{ form_data.data_abertura if form_data else '' }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="inscricaoEstadual" class="form-label">Inscrição Estadual</label>
-                                <input type="text" class="form-control" id="inscricaoEstadual" name="inscricao_estadual" placeholder="Opcional">
+                                <input type="text" class="form-control" id="inscricaoEstadual" name="inscricao_estadual" placeholder="Opcional" value="{{ form_data.inscricao_estadual if form_data else '' }}">
                             </div>
                         </div>
                         <div class="row mb-3">
                              <div class="col-md-12">
                                  <label for="ramoAtividade" class="form-label">Ramo de Atividade *</label>
-                                 <input type="text" class="form-control" id="ramoAtividade" name="ramo_atividade" required>
+                                 <input type="text" class="form-control" id="ramoAtividade" name="ramo_atividade" value="{{ form_data.ramo_atividade if form_data else '' }}" required>
                              </div>
+                        </div>
+                        <!-- ### ADICIONADO: Campo de Anexo de Documento PJ ### -->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="documentoAnexoPJ" class="form-label">Anexar Documento da Empresa (Ex: Contrato Social, Cartão CNPJ) *</label>
+                                <input class="form-control" type="file" id="documentoAnexoPJ" name="documento_anexo_pj" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <small class="form-text text-muted-light">Envie cópias dos documentos relevantes. Formatos: PDF, JPG, PNG.</small>
+                            </div>
                         </div>
 
                         <!-- Contato -->
                         <h4>Contato</h4>
+                        <!-- ... (campos de Contato existentes, adicionando value="{{ form_data.nome_do_campo if form_data else '' }}") ... -->
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="emailEmpresa" class="form-label">Email da Empresa *</label>
-                                <input type="email" class="form-control" id="emailEmpresa" name="email_empresa" required>
+                                <input type="email" class="form-control" id="emailEmpresa" name="email_empresa" value="{{ form_data.email_empresa if form_data else '' }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="confirmeEmailEmpresa" class="form-label">Confirme Email *</label>
-                                <input type="email" class="form-control" id="confirmeEmailEmpresa" name="confirme_email_empresa" required>
+                                <input type="email" class="form-control" id="confirmeEmailEmpresa" name="confirme_email_empresa" value="{{ form_data.confirme_email_empresa if form_data else '' }}" required>
                                 <div class="invalid-feedback" id="emailMismatchErrorPJ" style="display: none;">
                                     Os emails não correspondem.
                                 </div>
@@ -97,78 +106,148 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="telComercialEmpresa" class="form-label">Telefone Comercial *</label>
-                                <input type="tel" class="form-control" id="telComercialEmpresa" name="tel_comercial_empresa" placeholder="(00) 0000-0000" required>
+                                <input type="tel" class="form-control" id="telComercialEmpresa" name="tel_comercial_empresa" placeholder="(00) 0000-0000" value="{{ form_data.tel_comercial_empresa if form_data else '' }}" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="telCelularContato" class="form-label">Telefone Celular</label>
-                                <input type="tel" class="form-control" id="telCelularContato" name="tel_celular_contato" placeholder="(00) 00000-0000">
+                                <label for="telCelularContato" class="form-label">Telefone Celular (Representante)</label>
+                                <input type="tel" class="form-control" id="telCelularContato" name="tel_celular_contato" placeholder="(00) 00000-0000" value="{{ form_data.tel_celular_contato if form_data else '' }}">
                             </div>
                         </div>
 
                         <!-- Veículo -->
                         <h4>Veículo</h4>
+                        <!-- ... (campos de Veículo existentes, adicionando value="{{ form_data.nome_do_campo if form_data else '' }}") ... -->
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 <label for="placaCarroPJ" class="form-label">Placa *</label>
-                                <input type="text" class="form-control" id="placaCarroPJ" name="placa_carro_pj" placeholder="AAA-0A00 ou AAA0000" required>
+                                <input type="text" class="form-control" id="placaCarroPJ" name="placa_carro_pj" placeholder="AAA-0A00 ou AAA0000" value="{{ form_data.placa_carro_pj if form_data else '' }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="modeloCarroPJ" class="form-label">Modelo *</label>
-                                <input type="text" class="form-control" id="modeloCarroPJ" name="modelo_carro_pj" required>
+                                <input type="text" class="form-control" id="modeloCarroPJ" name="modelo_carro_pj" value="{{ form_data.modelo_carro_pj if form_data else '' }}" required>
                             </div>
                             <div class="col-md-3">
                                 <label for="corCarroPJ" class="form-label">Cor *</label>
-                                <input type="text" class="form-control" id="corCarroPJ" name="cor_carro_pj" required>
+                                <input type="text" class="form-control" id="corCarroPJ" name="cor_carro_pj" value="{{ form_data.cor_carro_pj if form_data else '' }}" required>
                             </div>
                             <div class="col-md-2">
                                 <label for="anoCarroPJ" class="form-label">Ano *</label>
-                                <input type="text" class="form-control" id="anoCarroPJ" name="ano_carro_pj" placeholder="AAAA" required>
+                                <input type="text" class="form-control" id="anoCarroPJ" name="ano_carro_pj" placeholder="AAAA" value="{{ form_data.ano_carro_pj if form_data else '' }}" required>
                             </div>
                         </div>
 
+
                         <!-- Endereço -->
                         <h4>Endereço da Empresa</h4>
+                        <!-- ... (campos de Endereço existentes, adicionando value="{{ form_data.nome_do_campo if form_data else '' }}") ... -->
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 <label for="cepEmpresa" class="form-label">CEP *</label>
-                                <input type="text" class="form-control" id="cepEmpresa" name="cep_empresa" placeholder="00000-000" required>
+                                <input type="text" class="form-control" id="cepEmpresa" name="cep_empresa" placeholder="00000-000" value="{{ form_data.cep_empresa if form_data else '' }}" required>
                             </div>
                              <div class="col-md-7">
                                 <label for="enderecoEmpresa" class="form-label">Endereço *</label>
-                                <input type="text" class="form-control" id="enderecoEmpresa" name="endereco_empresa" required>
+                                <input type="text" class="form-control" id="enderecoEmpresa" name="endereco_empresa" value="{{ form_data.endereco_empresa if form_data else '' }}" required>
                             </div>
                             <div class="col-md-2">
                                 <label for="numeroEmpresa" class="form-label">Número *</label>
-                                <input type="text" class="form-control" id="numeroEmpresa" name="numero_empresa" required>
+                                <input type="text" class="form-control" id="numeroEmpresa" name="numero_empresa" value="{{ form_data.numero_empresa if form_data else '' }}" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="complementoEmpresa" class="form-label">Complemento</label>
-                                <input type="text" class="form-control" id="complementoEmpresa" name="complemento_empresa">
+                                <input type="text" class="form-control" id="complementoEmpresa" name="complemento_empresa" value="{{ form_data.complemento_empresa if form_data else '' }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="bairroEmpresa" class="form-label">Bairro *</label>
-                                <input type="text" class="form-control" id="bairroEmpresa" name="bairro_empresa" required>
+                                <input type="text" class="form-control" id="bairroEmpresa" name="bairro_empresa" value="{{ form_data.bairro_empresa if form_data else '' }}" required>
                             </div>
                              <div class="col-md-3">
                                 <label for="cidadeEmpresa" class="form-label">Cidade *</label>
-                                <input type="text" class="form-control" id="cidadeEmpresa" name="cidade_empresa" required>
+                                <input type="text" class="form-control" id="cidadeEmpresa" name="cidade_empresa" value="{{ form_data.cidade_empresa if form_data else '' }}" required>
                             </div>
                             <div class="col-md-1">
                                 <label for="estadoEmpresa" class="form-label">UF *</label>
-                                <input type="text" class="form-control" id="estadoEmpresa" name="estado_empresa" required>
+                                <input type="text" class="form-control" id="estadoEmpresa" name="estado_empresa" value="{{ form_data.estado_empresa if form_data else '' }}" required>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100 mt-4">Enviar Cadastro</button>
+                        <!-- ### ADICIONADO: Seção de Pagamento PJ ### -->
+                        <h4 class="mt-4">Informações de Pagamento (PJ)</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Forma de Pagamento *</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="forma_pagamento_pj" id="pagamentoPixPJ" value="PIX" {% if form_data and form_data.forma_pagamento_pj == 'PIX' %}checked{% endif %} required>
+                                    <label class="form-check-label" for="pagamentoPixPJ">PIX</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="forma_pagamento_pj" id="pagamentoCartaoPJ" value="CartaoCredito" {% if form_data and form_data.forma_pagamento_pj == 'CartaoCredito' %}checked{% endif %}>
+                                    <label class="form-check-label" for="pagamentoCartaoPJ">Cartão de Crédito</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="forma_pagamento_pj" id="pagamentoBoletoPJ" value="Boleto" {% if form_data and form_data.forma_pagamento_pj == 'Boleto' %}checked{% endif %}>
+                                    <label class="form-check-label" for="pagamentoBoletoPJ">Boleto Bancário</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Melhor Data para Pagamento *</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="melhor_data_pagamento_pj" id="dataDia11PJ" value="11" {% if form_data and form_data.melhor_data_pagamento_pj == '11' %}checked{% endif %} required>
+                                    <label class="form-check-label" for="dataDia11PJ">Dia 11</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="melhor_data_pagamento_pj" id="dataDia21PJ" value="21" {% if form_data and form_data.melhor_data_pagamento_pj == '21' %}checked{% endif %}>
+                                    <label class="form-check-label" for="dataDia21PJ">Dia 21</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ### ADICIONADO: Seção de Termos Contratuais PJ ### -->
+                        <hr class="my-4">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="sim" id="aceiteTermosPJ" name="aceite_termos_pj" {% if form_data and form_data.aceite_termos_pj == 'sim' %}checked{% endif %} required>
+                            <label class="form-check-label" for="aceiteTermosPJ">
+                                Li e aceito os <a href="#" data-bs-toggle="modal" data-bs-target="#termosModalPJ">termos contratuais</a>.*
+                            </label>
+                            <div class="invalid-feedback" id="aceiteTermosPJError" style="display: none;">Você deve aceitar os termos.</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 mt-2">Enviar Cadastro</button>
                     </form>
                 </div>
             </div>
         </div>
     </div> <!-- FIM DO WRAPPER DE CONTEÚDO PRINCIPAL -->
 
-    {% include '_footer.html' %} <!-- INCLUINDO O RODAPÉ -->
+    {% include '_footer.html' %}
+
+    <!-- ### ADICIONADO: Modal dos Termos Contratuais PJ ### -->
+    <!-- Pode ser o mesmo ID de modal do form_pf.html se os termos forem os mesmos, -->
+    <!-- ou um ID diferente se os termos forem diferentes. -->
+    <div class="modal fade" id="termosModalPJ" tabindex="-1" aria-labelledby="termosModalLabelPJ" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content bg-light text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termosModalLabelPJ">Termos Contratuais (Pessoa Jurídica)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Use o PDF correto para PJ -->
+                    <iframe src="{{ url_for('static', filename='documents/termos_condicoes_pj.pdf') }}" width="100%" height="70vh" style="border: none;" title="Termos Contratuais Pessoa Jurídica"></iframe>
+                     <p class="mt-3 text-center">
+                        <a href="{{ url_for('static', filename='documents/termos_condicoes_pj.pdf') }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-download me-1"></i> Baixar PDF (PJ)
+                        </a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
