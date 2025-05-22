@@ -1,0 +1,66 @@
+{% extends "base_site.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<!-- Seção Cabeçalho da Página -->
+<section class="page-header-section section-bg-image text-center" style="background-image: url('{{ url_for('static', filename='images/sobre_nos_header_bg.jpg') }}');">
+    <div class="container">
+        <h1 class="display-4 page-title">Sobre Nós</h1>
+        <p class="lead page-subtitle">Conheça a história e os valores da CLA Rastreamento.</p>
+    </div>
+</section>
+
+<!-- Seção 1: História -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <img src="{{ url_for('static', filename='images/logoemail.png') }}" alt="História da CLA Rastreamento" class="img-fluid rounded shadow-lg mb-4 mb-lg-0">
+            </div>
+            <div class="col-lg-6 ps-lg-5">
+                <h2 class="section-title text-start mb-4">Nossa História</h2>
+                <p class="text-muted mb-3" style="font-size: 1.1rem;">
+                    Fundada com a paixão por tecnologia e o compromisso com a segurança desde 2011, a CLA Rastreamento nasceu da visão de oferecer soluções inovadoras e acessíveis para o monitoramento veicular. Desde o início, nosso foco tem sido em entender as necessidades de cada cliente, seja ele um proprietário individual preocupado com seu patrimônio ou uma empresa buscando otimizar a gestão de sua frota.
+                </p>
+                <p class="text-muted" style="font-size: 1.1rem;">
+                    Ao longo dos anos, investimos continuamente em pesquisa e desenvolvimento, acompanhando as evoluções do mercado para trazer o que há de mais moderno em rastreamento. Nossa trajetória é marcada pela confiança de nossos clientes e pela busca incessante pela excelência em nossos serviços.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+    
+<hr class="container my-5">
+
+<!-- Seção 2: O que a empresa é / Por que escolher -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center">
+                <h2 class="section-title mb-3">O Que Move a CLA?</h2>
+                <p class="lead text-muted mb-5">
+                    Somos mais do que uma empresa de rastreamento; somos seus parceiros na proteção e gestão eficiente do seu patrimônio veicular.
+                </p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-12">
+                 <h3 class="h4 mb-3 fw-semibold" style="color: var(--cla-secondary);">Por Que Escolher Nossos Serviços?</h3>
+                <p class="text-muted">
+                    Especializada em serviços de rastreamento e monitoramento veicular, a CLA oferece soluções flexíveis e personalizadas para garantir a segurança e satisfação dos clientes. A CLA é uma empresa prestadora de serviços de rastreamento e monitoramento, focada em desenvolver soluções de rastreamento e monitoramento de forma flexível e adaptada a cada necessidade de seus clientes, visando sempre a segurança e satisfação.
+                </p>
+                <p class="text-muted">
+                    Utilizando tecnologia avançada focada na sua satisfação, contando com sistema de monitoramento 100% web e mobile, que combina alta tecnologia com confiabilidade. Com a C.L.A você tem total controle sobre o seu veículo ou frota, 24h por dia, de onde estiver.
+                </p>
+                <p class="text-muted fw-medium mt-3">
+                    Seu carro, sua frota, sua segurança. A gente cuida de tudo pra você! A segurança do seu veículo começa com uma escolha inteligente. 🧠
+                </p>
+                <div class="text-center mt-4">
+                     <a href="{{ url_for('contato') }}" class="btn btn-cla-accent btn-lg">Entre em Contato e Descubra</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

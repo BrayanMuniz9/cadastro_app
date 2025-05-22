@@ -1,0 +1,107 @@
+{% extends "base_site.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<!-- Seção Cabeçalho da Página -->
+<section class="page-header-section section-bg-image text-center" style="background-image: url('{{ url_for('static', filename='images/servicos_header_bg.jpg') }}');">
+    <div class="container">
+        <h1 class="display-4 page-title">Nossos Serviços</h1>
+        <p class="lead page-subtitle">Tecnologia e tranquilidade para o seu dia a dia.</p>
+    </div>
+</section>
+<!-- Seção 1: Sobre o Rastreador e Benefícios -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="section-title text-start mb-3">Rastreamento Inteligente CLA</h2>
+                <p class="text-muted mb-3">
+Com a C.L.A, você tem rastreamento preciso, bloqueio à distância e monitoramento constante, tudo para garantir sua tranquilidade e proteger o que é seu. Não é só sobre tecnologia, é sobre confiança todos os dias na palma da sua mão. ✋                </p>
+                <p class="text-muted mb-3">
+                    Saber o que está acontecendo nas ruas é fundamental para garantir o bem-estar de todos. A segurança vai além de apenas proteger o veículo, envolve também o comportamento na direção. Com a C.L.A, você tem uma visão clara de tudo o que acontece, em tempo real.
+                </p>
+                <p class="text-muted mb-4">
+                    Não deixe a segurança ao acaso. Garanta a tranquilidade de saber que seus motoristas estão sempre protegidos e dirigindo de maneira segura.
+                </p>
+                <h3 class="h5 fw-semibold mb-3" style="color: var(--cla-secondary);">Instalação Ágil e Discreta:</h3>
+                <p class="text-muted">
+                    Quer proteger seu veículo de forma simples e rápida? Com a instalação do rastreador C.L.A, tudo é feito de maneira ágil e sem complicação! 🚗⚡ Em pouco tempo, nosso time especializado cuida de tudo: instalação discreta, sem danos ao seu carro e com monitoramento 24h pronto para garantir sua segurança. Não perca tempo! A instalação é rápida, o rastreamento é eficiente, e seu carro fica protegido imediatamente.
+                </p>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="card shadow-sm" style="background-color: var(--cla-secondary); color: var(--cla-text-light);">
+                    <div class="card-body p-4">
+                        <h4 class="card-title text-center mb-4" style="color: var(--cla-accent);">Principais Benefícios</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-start"><i class="fas fa-lock fa-lg text-cla-accent mt-1 me-3"></i> <span><strong>Bloqueio Remoto:</strong> Intervenha rapidamente em caso de emergência.</span></li>
+                            <li class="mb-3 d-flex align-items-start"><i class="fas fa-map-marked-alt fa-lg text-cla-accent mt-1 me-3"></i> <span><strong>Histórico de Percursos:</strong> Acesse rotas detalhadas e relatórios.</span></li>
+                            <li class="mb-3 d-flex align-items-start"><i class="fas fa-tachometer-alt fa-lg text-cla-accent mt-1 me-3"></i> <span><strong>Alertas de Velocidade:</strong> Monitore e promova uma direção mais segura.</span></li>
+                            <li class="mb-3 d-flex align-items-start"><i class="fas fa-shield-alt fa-lg text-cla-accent mt-1 me-3"></i> <span><strong>Monitoramento 24h:</strong> Sua segurança ativa dia e noite.</span></li>
+                            <li class="mb-3 d-flex align-items-start"><i class="fas fa-mobile-alt fa-lg text-cla-accent mt-1 me-3"></i> <span><strong>Controle Total pelo APP:</strong> Gerencie tudo na palma da sua mão.</span></li>
+                            <li class="d-flex align-items-start"><i class="fas fa-car fa-lg text-cla-accent mt-1 me-3"></i> <span><strong>Compatível com Qualquer Veículo:</strong> Soluções para carros, motos, caminhões e mais.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr class="container my-5">
+
+<!-- Seção 2: Processo de Instalação -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <h2 class="section-title">Processo de Instalação Simplificado</h2>
+        <div class="row text-center g-4">
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="p-3 bg-cla-accent d-inline-block rounded-circle mb-3">
+                            <i class="fas fa-satellite-dish fa-2x text-cla-primary"></i>
+                        </div>
+                        <h5 class="card-title">1. Instale o Rastreador</h5>
+                        <p class="card-text text-muted small">Nossos técnicos realizam a instalação de forma rápida e discreta em seu veículo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="p-3 bg-cla-accent d-inline-block rounded-circle mb-3">
+                            <i class="fas fa-mobile-alt fa-2x text-cla-primary"></i>
+                        </div>
+                        <h5 class="card-title">2. Instale o APP</h5>
+                        <p class="card-text text-muted small">Baixe nosso aplicativo e realize um cadastro simples para ter acesso à plataforma.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="p-3 bg-cla-accent d-inline-block rounded-circle mb-3">
+                            <i class="fas fa-cog fa-2x text-cla-primary"></i>
+                        </div>
+                        <h5 class="card-title">3. Configure</h5>
+                        <p class="card-text text-muted small">Personalize alertas e preferências de monitoramento conforme sua necessidade.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="p-3 bg-cla-accent d-inline-block rounded-circle mb-3">
+                            <i class="fas fa-check-circle fa-2x text-cla-primary"></i>
+                        </div>
+                        <h5 class="card-title">4. Pronto!</h5>
+                        <p class="card-text text-muted small">Seu veículo já está protegido e sendo monitorado 24 horas por dia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="{{ url_for('contato') }}" class="btn btn-cla-accent btn-lg">Quero Contratar Agora</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

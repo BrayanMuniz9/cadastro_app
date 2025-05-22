@@ -1,0 +1,142 @@
+{% extends "base_site.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<!-- Seção Hero (Parte 1) -->
+<section class="hero-section text-center text-md-start" style="background-image: url('{{ url_for('static', filename='images/background_hero.jpg') }}');">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 offset-md-6">
+                <h1 class="display-4">Monitoramento 24h por dia a um clique de distância</h1>
+                <p class="lead my-4">
+                    Rastreie o seu veículo através do app direto no celular. Segurança e tranquilidade na palma da sua mão.
+                </p>
+                <a href="{{ url_for('servicos') }}" class="btn btn-cla-accent btn-lg">Saiba Mais</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção 2 (Quem Somos - Chamada) -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/quem_somos_foto.jpg') }}" alt="Equipe CLA Rastreamento" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6 ps-md-5">
+                <h2 class="section-title text-start">Conheça a CLA Rastreamento</h2>
+                <p class="text-muted">Somos especialistas em proteger o que é importante para você. Com tecnologia de ponta e uma equipe dedicada, oferecemos soluções completas de rastreamento e monitoramento veicular.</p>
+                <p class="text-muted">Nossa missão é proporcionar segurança e tranquilidade, permitindo que você tenha controle total sobre seus veículos, onde quer que esteja.</p>
+                <a href="{{ url_for('sobre_nos') }}" class="btn btn-outline-primary mt-3">Quem Somos</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção 3 (Provocação) -->
+<section class="section-padding section-bg-image text-center" style="background-image: url('{{ url_for('static', filename='images/carro_sumiu_bg.jpg') }}');">
+    <div class="container">
+        <h2 class="section-title display-3">Seu carro sumiu e agora?</h2>
+        <p class="lead mb-4" style="color: var(--cla-light); max-width: 700px; margin-left:auto; margin-right:auto;">
+            A perda de um veículo é um momento de grande estresse. Com a CLA, você aumenta drasticamente as chances de recuperação e age rapidamente.
+        </p>
+    </div>
+</section>
+
+<!-- Seção 4 (Argumento de Segurança) -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 order-md-2">
+                <img src="{{ url_for('static', filename='images/seguranca_primeiro_lugar.jpg') }}" alt="Segurança em primeiro lugar" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6 pe-md-5 order-md-1">
+                <h2 class="section-title text-start">Sua Segurança é Nossa Prioridade</h2>
+                <p class="lead" style="font-size: 1.1rem; color: var(--cla-text-dark);">
+                    Com nosso sistema de rastreamento e monitoramento 24h, sua segurança está em primeiro lugar. Não espere até ser tarde demais para agir. Proteja o que é seu com quem entende do assunto! ✅
+                </p>
+                <ul class="list-unstyled mt-3" style="color: var(--cla-text-dark);">
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Monitoramento em tempo real</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Bloqueio remoto do veículo</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Alertas de movimentação e velocidade</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Suporte especializado 24/7</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção 5 (Perguntas Frequentes - FAQ) -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <h2 class="section-title">Perguntas Frequentes</h2>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Como funciona o rastreamento veicular?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Nosso sistema utiliza tecnologia GPS para localizar seu veículo em tempo real. As informações são transmitidas para nossa plataforma, acessível via web ou aplicativo mobile, permitindo que você visualize a localização, histórico de rotas, velocidade e receba alertas.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        A instalação do rastreador danifica meu veículo?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Não. A instalação é realizada por técnicos especializados de forma discreta e segura, sem causar danos à parte elétrica ou estética do seu veículo. Utilizamos conexões que não interferem na garantia de fábrica.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Posso bloquear meu veículo remotamente em caso de roubo?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Sim! Uma das principais funcionalidades é o bloqueio remoto. Através do aplicativo ou da nossa central de atendimento 24h, você pode solicitar o bloqueio do veículo, interrompendo seu funcionamento e auxiliando na recuperação.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        O sistema é compatível com qualquer tipo de veículo?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Sim, nossos rastreadores são compatíveis com a grande maioria dos veículos, incluindo carros de passeio, motocicletas, caminhões, ônibus e máquinas agrícolas. Consulte-nos para verificar a melhor solução para seu tipo de veículo.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Como acesso as informações de rastreamento?
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Você pode acessar todas as informações através do nosso aplicativo para smartphones (Android e iOS) ou pela plataforma web em qualquer computador com acesso à internet. O acesso é protegido por login e senha.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="{{ url_for('contato') }}" class="btn btn-cla-accent btn-lg">Entre em Contato Conosco</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

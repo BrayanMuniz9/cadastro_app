@@ -1,0 +1,263 @@
+/* static/style.css */
+/* Estilos ESPECÍFICOS para as PÁGINAS DE FORMULÁRIO DE CADASTRO (PF/PJ) */
+/* Este arquivo é carregado DEPOIS do site_style.css nessas páginas. */
+
+:root {
+    /* Variáveis de cor para o tema escuro do formulário */
+    --form-primary-blue: #0a2342;       /* Fundo do wrapper do conteúdo do formulário */
+    --form-secondary-blue: #004e92;     /* Fundo do card do formulário */
+    --form-text-light: #ffffff;
+    --form-text-muted-light: #adb5bd;
+    
+    --form-input-bg: #f0f8ff;          /* Cor de fundo dos inputs */
+    --form-input-text: #212529;        /* Cor do texto nos inputs */
+    --form-input-border: #cce0ff;
+    
+    /* Usando a cor de destaque do site para consistência visual */
+    --form-input-focus-border: #f0ad4e; /* --cla-accent do site_style.css */
+    --form-input-focus-shadow-rgb: 240, 173, 78; /* RGB do --cla-accent */
+
+    --form-link-terms: #f0f8ff; 
+    --form-link-terms-hover: #f0ad4e; 
+}
+
+/* 
+   O body NÃO é estilizado aqui diretamente com background,
+   pois o site_style.css define o body geral.
+   Em vez disso, a classe .form-page-body (se você a usar no <body> do form_*.html)
+   ou o .form-content-wrapper (mais recomendado) definirão o fundo escuro
+   para a área de conteúdo dos formulários.
+*/
+
+body.form-page-body { /* Aplicar esta classe ao <body> das páginas de formulário */
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--form-primary-blue) !important; /* Garante fundo escuro */
+    color: var(--form-text-light) !important;             /* Garante texto claro */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Wrapper para o conteúdo da página do formulário, abaixo da navbar incluída */
+.form-content-wrapper {
+    background-color: var(--form-primary-blue); /* Fundo escuro para a área do formulário */
+    color: var(--form-text-light);             /* Texto claro padrão para esta área */
+    padding-top: 100px; /* ESPAÇO PARA A NAVBAR FIXA. Ajuste este valor! */
+    flex-grow: 1;       /* Crucial para empurrar o rodapé para baixo */
+    width: 100%;
+    /* As linhas abaixo são para centralizar o .container interno se ele não ocupar 100% */
+    display: flex; 
+    flex-direction: column;
+    align-items: center; /* Centraliza o .container horizontalmente se ele não for width 100% */
+}
+
+/* Ajuste para o .container dentro do .form-content-wrapper */
+.form-content-wrapper > .container {
+    width: 100%; /* O container do Bootstrap já é responsivo */
+    max-width: 960px; /* Exemplo de largura máxima para o conteúdo do formulário */
+    padding-top: 2rem; /* Espaço acima do card */
+    padding-bottom: 2rem; /* Espaço abaixo do card */
+}
+
+
+/* Card do Formulário */
+.card.form-card-styling {
+    background-color: var(--form-secondary-blue);
+    color: var(--form-text-light);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    /* padding: 1.5rem; Removido, o card-body cuidará do padding interno */
+    /* margin-top e margin-bottom são controlados pelo .container agora */
+}
+
+.card.form-card-styling .card-header {
+    background-color: var(--form-primary-blue); 
+    color: var(--form-text-light);
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    border-top-left-radius: 9px; 
+    border-top-right-radius: 9px;
+}
+.card.form-card-styling .card-header h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+.card.form-card-styling .card-body {
+    padding: 1.5rem; /* Padding para o conteúdo dentro do card */
+}
+
+
+.form-card-styling h4 { /* Títulos das seções (Dados Pessoais, Contato, etc.) */
+    color: var(--form-text-light);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 0.5rem;
+    margin-top: 1.8rem;
+    margin-bottom: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.form-card-styling h4:first-of-type { /* Remove margem do topo do primeiro h4 */
+    margin-top: 0;
+}
+
+.form-card-styling .form-label {
+    font-weight: 500;
+    color: var(--form-text-muted-light);
+    margin-bottom: 0.3rem;
+}
+
+.form-card-styling .form-control,
+.form-card-styling .form-select {
+    border-radius: 6px;
+    background-color: var(--form-input-bg);
+    color: var(--form-input-text);
+    border: 1px solid var(--form-input-border);
+    padding: 0.6rem 0.85rem;
+}
+.form-card-styling .form-control::placeholder {
+  color: #6c757d;
+  opacity: 1; 
+}
+.form-card-styling .form-control:-ms-input-placeholder { color: #6c757d;}
+.form-card-styling .form-control::-ms-input-placeholder { color: #6c757d;}
+
+.form-card-styling .form-control:focus,
+.form-card-styling .form-select:focus {
+    background-color: #ffffff;
+    border-color: var(--form-input-focus-border);
+    box-shadow: 0 0 0 0.25rem rgba(var(--form-input-focus-shadow-rgb), 0.25);
+    color: var(--form-input-text);
+}
+
+.form-card-styling .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+.form-card-styling .form-select option {
+    background-color: #ffffff;
+    color: var(--form-input-text);
+}
+
+.form-card-styling .form-check {
+    margin-bottom: 0.5rem;
+}
+.form-card-styling .form-check-label {
+    color: var(--form-text-muted-light);
+    font-weight: normal;
+    padding-left: 0.3em;
+}
+.form-card-styling .form-check-label a { /* Link dos termos */
+    color: var(--form-link-terms); 
+    text-decoration: underline;
+    font-weight: 500;
+}
+.form-card-styling .form-check-label a:hover {
+    color: var(--form-link-terms-hover);
+}
+
+.form-card-styling .form-text.text-muted-light { /* Texto de ajuda abaixo do upload */
+    color: var(--form-text-muted-light) !important;
+}
+
+/* Botão de Enviar no Formulário */
+/* O HTML já usa .btn-cla-accent, que será estilizado pelo site_style.css */
+/* Se quiser um estilo específico aqui, sobrescreva .form-card-styling .btn-cla-accent */
+.form-card-styling .btn.btn-cla-accent {
+    /* Exemplo de como poderia ser se quisesse o botão branco gelo: */
+    /*
+    background-color: var(--form-input-bg);
+    color: var(--form-primary-blue);
+    border-color: var(--form-input-border);
+    padding: 0.75rem 1.2rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    */
+}
+.form-card-styling .btn.btn-cla-accent:hover {
+    /* Exemplo:
+    background-color: #e6f2ff;
+    color: var(--form-secondary-blue);
+    border-color: #a6cfff;
+    */
+}
+
+
+/* Alertas dentro do formulário */
+.form-card-styling .alert {
+    border-radius: 6px;
+    color: var(--text-dark);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.form-card-styling .alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    color: #721c24; 
+}
+
+/* Feedback de validação JS dentro dos formulários */
+.form-card-styling .custom-invalid-feedback,
+.form-card-styling .group-invalid-feedback {
+     color: #f8d7da;
+}
+
+/* Modal dos Termos - Estilos para garantir que seja legível */
+/* Estes estilos serão aplicados ao modal quando ele estiver em uma página com body.form-page-body */
+body.form-page-body .modal-content { 
+    background-color: #fff; /* Força fundo branco para o conteúdo do modal */
+    color: #212529;    /* Força texto escuro para o conteúdo do modal */
+}
+body.form-page-body .modal-header .btn-close {
+    filter: none; /* Reseta filtro do btn-close se o fundo do modal for claro */
+}
+
+/* Estilo para os Modais dos Termos (PF e PJ) */
+#termosModal .modal-dialog,
+#termosModalPJ .modal-dialog {
+    max-width: 90%; /* Ocupa 90% da largura da tela */
+    /* ou um valor fixo maior, ex: max-width: 1300px; */
+    margin-top: 2rem; /* Adiciona uma margem no topo */
+    margin-bottom: 2rem; /* Adiciona uma margem na base */
+}
+
+/* Para garantir que o iframe dentro ocupe o espaço e tenha uma boa altura */
+#termosModal .modal-body iframe,
+#termosModalPJ .modal-body iframe {
+    min-height: 75vh; /* Altura mínima de 75% da altura da viewport */
+    /* Você já tem height: 70vh inline, o min-height pode ser um fallback ou para garantir */
+}
+
+/* Opcional: Se quiser que o modal seja quase tela cheia em telas menores */
+@media (max-width: 767.98px) { /* Abaixo do breakpoint md do Bootstrap */
+    #termosModal .modal-dialog,
+    #termosModalPJ .modal-dialog {
+        max-width: 95%; /* Mais largo em telas pequenas */
+        margin: 1rem auto; /* Centraliza e dá pequenas margens */
+    }
+    #termosModal .modal-body iframe,
+    #termosModalPJ .modal-body iframe {
+        min-height: 80vh;
+    }
+}
+.form-card-styling .btn-secondary {
+    background-color: var(--form-text-muted-light);
+    color: var(--form-primary-blue);
+    border-color: var(--form-text-muted-light);
+}
+.form-card-styling .btn-secondary:hover {
+    background-color: #c1c9d1; /* Um pouco mais escuro */
+    border-color: #c1c9d1;
+}
+
+.form-card-styling .btn-outline-light {
+    color: var(--form-text-light);
+    border-color: var(--form-text-light);
+}
+.form-card-styling .btn-outline-light:hover {
+    background-color: var(--form-text-light);
+    color: var(--form-primary-blue);
+}
+/* Fim dos estilos específicos do formulário */

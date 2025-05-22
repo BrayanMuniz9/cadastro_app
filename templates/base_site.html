@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CLA Rastreamento{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" href="{{ url_for('static', filename='images/logoant.png') }}" type="image/png"> <!-- Seu favicon -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/site_style.css') }}"> <!-- NOVO ARQUIVO CSS PARA O SITE -->
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-cla" id="mainNavbar">
+        <div class="container">
+            <!-- Logo lateral para mobile/scroll (controlada por JS) -->
+            <a class="navbar-brand logo-container-nav visually-hidden-not-scrolled" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CLA Rastreamento Logo" class="logo-nav-scrolled">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <!-- ### INÍCIO DA MUDANÇA PRINCIPAL ### -->
+                <!-- Todos os itens da navbar (links e logo central) dentro de um único wrapper ou ul -->
+                <ul class="navbar-nav navbar-items-centered mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" aria-current="page" href="{{ url_for('home') }}">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'servicos' %}active{% endif %}" href="{{ url_for('servicos') }}">Serviços</a>
+                    </li>
+                    <!-- Item da Logo Central (agora como um <li>) -->
+                    <li class="nav-item nav-item-logo-main">
+                        <a class="navbar-brand logo-container-main-li" href="{{ url_for('home') }}">
+                            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CLA Rastreamento Logo" id="mainLogo" class="main-logo-top">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'sobre_nos' %}active{% endif %}" href="{{ url_for('sobre_nos') }}">Quem Somos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'contato' %}active{% endif %}" href="{{ url_for('contato') }}">Contato</a>
+                    </li>
+                </ul>
+                <!-- ### FIM DA MUDANÇA PRINCIPAL ### -->
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-site-content">
+        {% block content %}
+        <!-- Conteúdo específico da página virá aqui -->
+        {% endblock %}
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer-site text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CLA Rastreamento" class="footer-logo mb-2">
+                    <p class="small">Sua segurança em primeiro lugar. Monitoramento 24h para sua tranquilidade.</p>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h5>Navegação</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('home') }}" class="footer-link">Início</a></li>
+                        <li><a href="{{ url_for('servicos') }}" class="footer-link">Serviços</a></li>
+                        <li><a href="{{ url_for('sobre_nos') }}" class="footer-link">Quem Somos</a></li>
+                        <li><a href="{{ url_for('contato') }}" class="footer-link">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Contato</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i>(11) 96321-3660</li>
+                        <li><i class="fas fa-phone me-2"></i>(11) 5197-7294</li>
+                        <li><i class="fas fa-envelope me-2"></i>contato@clarastreamento.com.br</li>
+                        <!-- Adicionar endereço se houver -->
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Siga-nos</h5>
+                    <a href="https://www.instagram.com/clarastreamento" target="_blank" class="footer-social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61569653066558&locale=pt_BR" target="_blank" class="footer-social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@clarastreamento.com.br" target="_blank" class="footer-social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://wa.me/5511963213660" target="_blank" class="footer-social-icon"><i class="fab fa-whatsapp"></i></a>
+                    <!-- Adicionar outros ícones sociais -->
+                </div>
+            </div>
+            <hr class="footer-hr">
+            <div class="text-center mt-3">
+                <p class="mb-0 small">© <span id="currentYearFooter"></span> CLA Rastreamento. Todos os direitos reservados. Site por Brayan Muniz.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/site_script.js') }}"></script>
+    {% block scripts_extra %}{% endblock %}
+    <script>
+        document.getElementById("currentYearFooter").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

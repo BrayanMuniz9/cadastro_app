@@ -1,0 +1,520 @@
+/* static/css/site_style.css */
+:root {
+    --cla-primary: #0a2342; /* Azul escuro CLA */
+    --cla-secondary: #004e92; /* Azul médio CLA */
+    --cla-accent: #f0ad4e;  /* Laranja/Amarelo para botões e destaques */
+    --cla-accent-rgb: 240, 173, 78; /* Para usar com rgba() */
+    --cla-light: #f8f9fa;   /* Quase branco */
+    --cla-text-light: #ffffff;
+    --cla-text-dark: #212529;
+    --cla-text-muted: #6c757d; /* Para texto normal em fundo claro */
+    --cla-text-muted-on-dark: #adb5bd; /* Para texto 'muted' em fundo escuro */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--cla-light); /* Fundo geral do site */
+    color: var(--cla-text-dark);
+    /* >>> REMOVIDO: padding-top: 90px; <<< Isso era para evitar que o conteúdo ficasse sob a navbar fixa.
+        Agora, a primeira seção (hero) vai ocupar o espaço ou as outras páginas terão seu próprio espaçamento. */
+}
+
+.main-site-content {
+    /* Esta classe pode não ser mais necessária para min-height se o body e footer já cuidam disso,
+       mas pode ser usada para aplicar padding-top em páginas que NÃO começam com uma hero section. */
+    /* min-height: calc(100vh - 90px - 200px); */ /* Avaliar se ainda é necessário */
+}
+
+/* Classe para adicionar padding no topo de páginas que não são a home com hero */
+.page-container-after-fixed-nav {
+    padding-top: 90px; /* Ajuste este valor para a altura da sua navbar quando NÃO transparente */
+}
+
+
+/* --- Navbar Customizada --- */
+.navbar-cla {
+    background-color: transparent !important; 
+    transition: background-color 0.3s ease-in-out, padding 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    padding: 1.5rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.navbar-cla.navbar-scrolled {
+    background-color: var(--cla-primary) !important;
+    padding: 0.8rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ### MODIFICADO: Estilo para a lista centralizada de itens da navbar ### */
+.navbar-cla .navbar-collapse {
+    justify-content: center; /* Força a centralização do conteúdo do collapse */
+}
+
+.navbar-items-centered {
+    display: flex;
+    align-items: center; /* Alinha itens verticalmente */
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.navbar-items-centered .nav-item {
+    margin: 0 1.5rem; /* Espaçamento horizontal entre todos os itens (links e logo) */
+}
+
+/* Estilo para o item que contém a logo central */
+.navbar-items-centered .nav-item-logo-main {
+    /* A logo em si (main-logo-top) já tem seus estilos de altura e filtro */
+    /* Podemos adicionar margens específicas se necessário para ajustar o espaçamento ao redor da logo */
+    margin: 0 2rem; /* Exemplo: um pouco mais de espaço ao redor da logo */
+    margin-right: 0;
+}
+.navbar-items-centered .logo-container-main-li .navbar-brand {
+    padding-top: 0; /* Remove padding extra do navbar-brand dentro de um li */
+    padding-bottom: 0;
+}
+
+
+.navbar-cla .nav-link {
+    color: var(--cla-text-light); 
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    /* margin: 0 0.8rem; Removido, pois .nav-item agora cuida do espaçamento */
+    padding: 0.5rem 0.5rem; /* Padding dos links */
+    transition: color 0.2s ease;
+}
+.navbar-cla .nav-link:hover,
+.navbar-cla .nav-link.active {
+    color: var(--cla-accent); 
+}
+
+.navbar-cla.navbar-scrolled .nav-link {
+    color: var(--cla-text-light); 
+}
+.navbar-cla.navbar-scrolled .nav-link:hover,
+.navbar-cla.navbar-scrolled .nav-link.active {
+    color: var(--cla-accent);
+}
+
+.main-logo-top {
+    height: 60px; 
+    transition: height 0.3s ease-in-out;
+    filter: brightness(0) invert(1); 
+}
+.navbar-cla.navbar-scrolled .main-logo-top {
+    height: 45px;
+}
+
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.5);
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Logo lateral para mobile/scroll (já existente, JS controla visibilidade) */
+.logo-nav-scrolled {
+    height: 35px;
+    filter: brightness(0) invert(1);
+}
+.navbar-cla .logo-container-nav { 
+    display: none; /* Escondida por padrão, JS mostra */
+}
+
+
+/* ### MODIFICADO: Comportamento do navbar-collapse em telas menores ### */
+@media (max-width: 991.98px) { /* Abaixo do breakpoint lg do Bootstrap */
+    .navbar-cla .navbar-collapse {
+        /* justify-content: flex-start; Removido para manter centralizado se possível, ou Bootstrap cuida */
+        background-color: var(--cla-primary);
+        padding: 1rem;
+        margin-top: 0.5rem;
+        border-radius: 0.25rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .navbar-items-centered {
+        flex-direction: column; /* Empilha os itens */
+        width: 100%;
+    }
+    .navbar-items-centered .nav-item {
+        width: 100%;
+        margin: 0.25rem 0; /* Espaçamento vertical entre itens no mobile */
+        text-align: center; /* Centraliza o texto dos links */
+    }
+    .navbar-items-centered .nav-item-logo-main {
+        order: -1; /* Coloca a logo no topo do menu mobile, se desejado */
+        margin-bottom: 0.5rem;
+    }
+    .main-logo-top { /* Logo no menu mobile */
+         height: 45px; /* Pode ser um pouco menor no menu mobile */
+    }
+
+    /* Lógica de mostrar/esconder logos no JS é crucial para mobile */
+    /* Esconde a logo lateral se a logo central está no menu dropdown */
+    /* O JS já deve estar fazendo isso, mas pode ser reforçado aqui se necessário */
+    .navbar-cla .logo-container-nav {
+        display: block !important; /* Força a logo lateral a aparecer quando o menu hambúrguer é visível */
+    }
+     .navbar-cla .logo-container-main-li { /* Esconde a logo principal do centro quando em modo mobile */
+        display: none !important;
+    }
+}
+
+
+/* --- Seção Hero (Página Inicial) --- */
+.hero-section {
+    height: 100vh; /* Faz a seção ocupar a altura total da tela */
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: var(--cla-text-light);
+    /* padding: 3rem 0; Removido, pois height e align-items cuidam do posicionamento */
+}
+.hero-section::before { 
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.55); /* Overlay um pouco mais escuro */
+    z-index: 1;
+}
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+    padding-top: 70px; /* ### ADICIONADO: Espaço para a navbar transparente não sobrepor o texto do hero ### */
+                       /* Ajuste este valor se a altura da navbar transparente for diferente */
+}
+.hero-section h1 {
+    font-size: 3.2rem; /* Ajuste conforme necessário */
+    font-weight: 800; /* Mais peso para o título principal */
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Sombra leve no texto para legibilidade */
+}
+.hero-section p.lead {
+    font-size: 1.3rem; /* Ajuste conforme necessário */
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    max-width: 600px; /* Limita a largura do parágrafo na direita */
+}
+.btn-cla-accent {
+    background-color: var(--cla-accent);
+    color: var(--cla-primary);
+    border-color: var(--cla-accent);
+    padding: 0.8rem 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.btn-cla-accent:hover {
+    background-color: #e89c3a;
+    border-color: #e89c3a;
+    color: var(--cla-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* --- Estilos Gerais para Seções --- */
+.section-padding {
+    padding: 80px 0; /* Aumentado o padding padrão das seções */
+}
+.section-bg-image {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: var(--cla-text-light);
+}
+.section-bg-image::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(10, 35, 66, 0.75); /* Overlay um pouco mais forte */
+    z-index: 1;
+}
+.section-bg-image > .container {
+    position: relative;
+    z-index: 2;
+}
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cla-primary);
+    margin-bottom: 40px; /* Aumentado margin */
+    text-align: center;
+}
+.section-bg-image .section-title {
+    color: var(--cla-text-light);
+}
+
+/* --- Acordeão FAQ --- */
+.accordion-item {
+    margin-bottom: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: .375rem; /* Mesmo border-radius dos cards */
+}
+.accordion-button {
+    font-weight: 600;
+    color: var(--cla-secondary);
+    background-color: var(--cla-light); /* Fundo claro para o botão do acordeão */
+    border-radius: calc(.375rem - 1px) !important; /* Ajuste para consistência */
+}
+.accordion-button:not(.collapsed) {
+    background-color: var(--cla-secondary);
+    color: var(--cla-text-light);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+}
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(var(--cla-accent-rgb), 0.4); /* Usei --cla-accent-rgb */
+}
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    transform: rotate(-180deg);
+}
+.accordion-body {
+    font-size: 0.95rem;
+    color: var(--cla-text-dark);
+    background-color: #fff; /* Fundo branco para o corpo do acordeão */
+    border-bottom-left-radius: calc(.375rem - 1px);
+    border-bottom-right-radius: calc(.375rem - 1px);
+}
+
+/* --- Rodapé --- */
+.footer-site {
+    background-color: var(--cla-primary);
+}
+.footer-logo {
+    max-height: 50px;
+    filter: brightness(0) invert(1);
+}
+.footer-site h5 {
+    color: var(--cla-accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+.footer-link {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 0.9rem;
+}
+.footer-link:hover {
+    color: var(--cla-text-light);
+    text-decoration: underline;
+}
+.footer-social-icon {
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.7);
+    margin-right: 15px;
+    transition: color 0.2s ease;
+}
+.footer-social-icon:hover {
+    color: var(--cla-accent);
+}
+.footer-hr {
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+.footer-site .small, .footer-site p {
+    color: rgba(255,255,255,0.7);
+}
+
+/* --- Estilos para Cabeçalhos de Páginas Internas --- */
+.page-header-section {
+    padding: 220px 0 80px; /* Aumenta o padding-top para compensar a navbar fixa */
+    min-height: 45vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.page-header-section::before {
+    background-color: rgba(10, 35, 66, 0.8);
+}
+.page-title {
+    color: var(--cla-text-light);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 2.8rem;
+}
+.page-subtitle {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Estilos para a página de seleção de cadastro (index_cadastro.html) --- */
+.selection-container-cadastro {
+    max-width: 800px;
+    padding-top: 120px; /* Para compensar a navbar fixa */
+    padding-bottom: 80px;
+}
+.selection-card-cadastro {
+    background-color: var(--cla-secondary);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--cla-text-light); /* Texto geral do card claro */
+}
+.selection-card-cadastro:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border-color: var(--cla-accent);
+}
+.selection-card-cadastro .card-title {
+    color: var(--cla-text-light);
+}
+.selection-card-cadastro .card-text {
+    color: var(--cla-text-muted-on-dark); /* Usar a var para texto muted em fundo escuro */
+}
+.selection-card-cadastro i {
+    color: var(--cla-accent);
+}
+
+.bg-cla-accent {
+    background-color: var(--cla-accent) !important;
+}
+.text-cla-primary {
+    color: var(--cla-primary) !important;
+}
+
+.contact-info a {
+    color: var(--cla-text-dark);
+    font-weight: 500;
+}
+.contact-info a:hover {
+    color: var(--cla-accent);
+}
+.contact-info .fa-whatsapp {
+    color: #25D366;
+}
+
+/* Ajuste para cor do texto nos cards da seção de instalação (servicos.html) */
+#faqContactAccordion .accordion-body,
+.section-padding.bg-light .card-text { /* Garante que texto em cards com bg-light seja escuro */
+    color: var(--cla-text-muted);
+}
+#faqContactAccordion .accordion-button {
+    color: var(--cla-secondary); /* Garante que o botão do acordeão tenha cor correta */
+}
+#faqContactAccordion .accordion-button:not(.collapsed) {
+    background-color: var(--cla-secondary);
+    color: var(--cla-text-light);
+}
+
+/* Ajuste para a cor do texto do card-text que você adicionou no final */
+.card-text { /* Regra genérica, pode precisar ser mais específica se causar problemas */
+    color: var(--cla-text-muted); /* Default para texto em cards com fundo claro */
+}
+.selection-card-cadastro .card-text { /* Sobrescreve para os cards de seleção que têm fundo escuro */
+    color: var(--cla-text-muted-on-dark);
+}
+.card.shadow-sm[style*="background-color: var(--cla-secondary)"] .card-text { /* Específico para cards com fundo secundário */
+    color: var(--cla-text-muted-on-dark);
+}
+
+/* Estilos específicos para os cards de formulário */
+.form-card-styling {
+    background-color: var(--cla-secondary); /* Mantém o card azul escuro */
+    color: var(--cla-text-light);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+.form-card-styling .card-header {
+    background-color: var(--cla-primary);
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+.form-card-styling .form-label {
+    color: var(--cla-text-muted-on-dark);
+}
+.form-card-styling .form-control,
+.form-card-styling .form-select {
+    background-color: var(--ice-white);
+    color: var(--input-text-dark);
+    border-color: var(--button-border);
+}
+.form-card-styling .form-control::placeholder {
+    color: #6c757d;
+}
+.form-card-styling .form-control:focus,
+.form-card-styling .form-select:focus {
+    background-color: #fff;
+    border-color: var(--cla-accent); /* Usar accent para foco */
+    box-shadow: 0 0 0 0.25rem rgba(var(--cla-accent-rgb), 0.3);
+}
+.form-card-styling .form-check-label {
+    color: var(--cla-text-muted-on-dark);
+}
+.form-card-styling .form-check-label a {
+    color: var(--ice-white);
+}
+ .form-card-styling .form-check-label a:hover {
+    color: var(--cla-accent);
+}
+.form-card-styling .form-text.text-muted { /* Para o small text abaixo do upload */
+    color: var(--cla-text-muted-on-dark) !important;
+}
+.form-card-styling .custom-invalid-feedback,
+.form-card-styling .group-invalid-feedback {
+     color: #f8d7da; /* Um vermelho mais claro que contraste com o azul */
+}
+/* O botão já usa .btn-cla-accent, que deve funcionar bem */
+
+/* Remove a regra genérica que estava deixando o texto branco em todos os cards */
+/* .card-text {
+    color: white; 
+} */
+
+/* Para formulários de cadastro (se forem herdar de base_site.html e usar site_style.css) */
+/* Se style.css ainda for usado para os formulários, esses estilos podem ser desnecessários aqui */
+/*
+.form-card {
+    background-color: var(--cla-secondary);
+    color: var(--cla-text-light);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+.form-card .card-header {
+    background-color: var(--cla-primary);
+    color: var(--cla-text-light);
+}
+.form-card .form-label {
+    color: var(--cla-text-muted-on-dark);
+}
+.form-card .form-control, .form-card .form-select {
+    background-color: var(--ice-white);
+    color: var(--input-text-dark);
+    border: 1px solid var(--button-border);
+}
+.form-card .form-control::placeholder { color: #6c757d; }
+.form-card .form-control:focus, .form-card .form-select:focus {
+    background-color: #fff;
+    border-color: var(--light-blue);
+    box-shadow: 0 0 0 0.25rem rgba(var(--cla-accent-rgb),0.25);
+}
+.form-card .btn-success {
+    background-color: var(--ice-white);
+    color: var(--cla-primary);
+    border-color: var(--button-border);
+}
+.form-card .btn-success:hover {
+    background-color: var(--button-hover-bg);
+}
+.form-card .form-check-label {
+    color: var(--cla-text-muted-on-dark);
+}
+.form-card .form-check-label a {
+    color: var(--ice-white);
+}
+*/

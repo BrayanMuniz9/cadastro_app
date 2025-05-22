@@ -1,0 +1,101 @@
+{% extends "base_site.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+    <!-- Seção Cabeçalho da Página -->
+    <section class="page-header-section section-bg-image text-center" style="background-image: url('{{ url_for('static', filename='images/contato_header_bg.jpg') }}');">
+        <div class="container">
+            <h1 class="display-4 page-title">Entre em Contato</h1>
+            <p class="lead page-subtitle">Estamos prontos para atender você e tirar todas as suas dúvidas.</p>
+        </div>
+    </section>
+    
+    <!-- Seção de Contato e Redes Sociais -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="section-title text-start">Fale Conosco</h2>
+                    <p class="text-muted mb-4">
+                        Tem alguma pergunta sobre nossos serviços, planos ou precisa de suporte? Nossa equipe está à disposição para ajudar.
+                    </p>
+                    <div class="contact-info">
+                        <p class="mb-3 d-flex align-items-center"><i class="fas fa-phone fa-lg text-cla-accent me-3"></i> <a href="tel:+55115197-7294" class="text-decoration-none text-dark">(11) 5197-7294</a></p>
+                        <p class="mb-3 d-flex align-items-center"><i class="fas fa-envelope fa-lg text-cla-accent me-3"></i> <a href="mailto:contato@clarastreamento.com.br" class="text-decoration-none text-dark">contato@clarastreamento.com.br</a></p>
+                        <!-- Se tiver endereço físico:
+                        <p class="mb-3 d-flex align-items-start"><i class="fas fa-map-marker-alt fa-lg text-cla-accent me-3 mt-1"></i> <span>Seu Endereço Completo Aqui,<br>Cidade - UF, CEP</span></p>
+                        -->
+                        <p class="mb-3 d-flex align-items-center"><i class="fab fa-whatsapp fa-lg text-success me-3"></i> <a href="https://wa.me/5511963213660" target="_blank" class="text-decoration-none text-dark">WhatsApp: (11) 96321-3660</a></p>
+                    </div>
+                    <h4 class="mt-5 mb-3 fw-semibold" style="color: var(--cla-secondary);">Siga-nos nas Redes Sociais</h4>
+                    <div>
+                        <a href="https://www.instagram.com/clarastreamento" target="_blank" class="footer-social-icon fs-2 me-3" style="color: var(--cla-primary);"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@clarastreamento.com.br" target="_blank" class="footer-social-icon fs-2 me-3" style="color: var(--cla-primary);"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61569653066558&locale=pt_BR" target="_blank" class="footer-social-icon fs-2 me-3" style="color: var(--cla-primary);"><i class="fab fa-facebook"></i></a>
+                        <!-- Adicione outros links de redes sociais se houver -->
+                        <!-- <a href="#" target="_blank" class="footer-social-icon fs-2 me-3" style="color: var(--cla-primary);"><i class="fab fa-facebook-f"></i></a> -->
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                        <h2 class="section-title text-start">Mande uma Mensagem Rápida via WhatsApp</h2>
+                         <p class="text-muted mb-4">
+                            Preencha os campos abaixo e clique em "Enviar via WhatsApp" para iniciar uma conversa       conosco.
+                        </p>
+                        <!-- ### FORMULÁRIO MODIFICADO ### -->
+                        <form id="whatsappForm">  <!-- Removido action e method, adicionado ID -->
+                            <div class="mb-3">
+                                <label for="whatsappName" class="form-label">Seu Nome *</label>
+                                <input type="text" class="form-control" id="whatsappName" name="whatsapp_name"      required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="whatsappSubject" class="form-label">Assunto</label>
+                                <input type="text" class="form-control" id="whatsappSubject" name="whatsapp_subject">
+                            </div>
+                            <div class="mb-3">
+                                <label for="whatsappMessage" class="form-label">Sua Mensagem *</label>
+                                <textarea class="form-control" id="whatsappMessage" name="whatsapp_message" rows="5"        required></textarea>
+                            </div>
+                            <!-- Botão agora tipo 'button' para ser controlado por JS -->
+                            <button type="button" class="btn btn-cla-accent" id="sendWhatsappButton"><i class="fab      fa-whatsapp me-2"></i>Enviar via WhatsApp</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Seção FAQ (Pode ser a mesma da home ou adaptada) -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <h2 class="section-title">Perguntas Frequentes</h2>
+        <div class="accordion" id="faqContactAccordion">
+            <!-- Copie os .accordion-item da home.html ou crie novos se as perguntas forem diferentes -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingContactOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactOne" aria-expanded="false" aria-controls="collapseContactOne">
+                        Qual o horário de atendimento?
+                    </button>
+                </h2>
+                <div id="collapseContactOne" class="accordion-collapse collapse" aria-labelledby="headingContactOne" data-bs-parent="#faqContactAccordion">
+                    <div class="accordion-body">
+                        Nossa central de monitoramento e suporte para emergências funciona 24 horas por dia, 7 dias por semana. Para atendimento comercial e administrativo, nosso horário é de segunda a sexta, das 08:00 às 18:00.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingContactTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactTwo" aria-expanded="false" aria-controls="collapseContactTwo">
+                        Como posso solicitar um orçamento?
+                    </button>
+                </h2>
+                <div id="collapseContactTwo" class="accordion-collapse collapse" aria-labelledby="headingContactTwo" data-bs-parent="#faqContactAccordion">
+                    <div class="accordion-body">
+                        Você pode solicitar um orçamento entrando em contato conosco através de qualquer um dos canais listados nesta página (telefone, email, WhatsApp) ou preenchendo nosso formulário de cadastro para que um de nossos consultores entre em contato.
+                    </div>
+                </div>
+            </div>
+            <!-- Adicione mais 3 perguntas/respostas -->
+        </div>
+    </div>
+</section>
+{% endblock %}

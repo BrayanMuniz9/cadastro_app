@@ -179,7 +179,23 @@ def enviar_email_cadastro_geral(dados_formulario, tipo_pessoa, anexo_path=None):
                 app.logger.error(f"Erro ao tentar remover o arquivo de anexo temporário {anexo_path}: {e_remove}", exc_info=True)
         # --------------------------------------------------------------------
 
-@app.route('/')
+@app.route('/')  # Agora a rota raiz será a home do site
+def home():
+    return render_template('home.html', page_title="CLA Rastreamento - Segurança e Monitoramento Veicular")
+
+@app.route('/sobre-nos')
+def sobre_nos():
+    return render_template('sobre.html', page_title="Sobre Nós - CLA Rastreamento")
+
+@app.route('/servicos')
+def servicos():
+    return render_template('servicos.html', page_title="Nossos Serviços - CLA Rastreamento")
+
+@app.route('/contato')
+def contato():
+    return render_template('contato.html', page_title="Contato - CLA Rastreamento")
+
+@app.route('/cadastro')
 def index():
     return render_template('index.html')
 
