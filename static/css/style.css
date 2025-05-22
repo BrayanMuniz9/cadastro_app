@@ -165,24 +165,6 @@ body.form-page-body { /* Aplicar esta classe ao <body> das páginas de formulár
 /* Botão de Enviar no Formulário */
 /* O HTML já usa .btn-cla-accent, que será estilizado pelo site_style.css */
 /* Se quiser um estilo específico aqui, sobrescreva .form-card-styling .btn-cla-accent */
-.form-card-styling .btn.btn-cla-accent {
-    /* Exemplo de como poderia ser se quisesse o botão branco gelo: */
-    /*
-    background-color: var(--form-input-bg);
-    color: var(--form-primary-blue);
-    border-color: var(--form-input-border);
-    padding: 0.75rem 1.2rem;
-    font-size: 1.05rem;
-    font-weight: 600;
-    */
-}
-.form-card-styling .btn.btn-cla-accent:hover {
-    /* Exemplo:
-    background-color: #e6f2ff;
-    color: var(--form-secondary-blue);
-    border-color: #a6cfff;
-    */
-}
 
 
 /* Alertas dentro do formulário */
