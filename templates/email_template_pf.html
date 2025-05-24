@@ -46,16 +46,6 @@
             <p><strong>Órgão Emissor:</strong> {{ data.orgao_emissor | default('Não informado', true) }}</p>
             <p><strong>Data de Emissão RG:</strong> {{ data.data_emissao_rg | default('Não informado', true) }}</p>
 
-            <h4>Informações Profissionais</h4>
-            <p><strong>Profissão:</strong> {{ data.profissao | default('Não informado', true) }}</p>
-            <p><strong>Remuneração:</strong> R$ 
-                {% if data.remuneracao and data.remuneracao|string|length > 0 %}
-                    {{ "%.2f"|format(data.remuneracao|float) }}
-                {% else %}
-                    Não informado
-                {% endif %}
-            </p>
-
             <h4>Veículo</h4>
             <p><strong>Placa do Carro:</strong> {{ data.placa_carro | default('Não informado', true) }}</p>
             <p><strong>Modelo:</strong> {{ data.modelo_carro | default('Não informado', true) }}</p>

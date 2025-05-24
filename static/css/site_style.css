@@ -104,7 +104,6 @@ body {
 .main-logo-top {
     height: 60px; 
     transition: height 0.3s ease-in-out;
-    filter: brightness(0) invert(1); 
 }
 .navbar-cla.navbar-scrolled .main-logo-top {
     height: 45px;
@@ -120,7 +119,6 @@ body {
 /* Logo lateral para mobile/scroll (já existente, JS controla visibilidade) */
 .logo-nav-scrolled {
     height: 35px;
-    filter: brightness(0) invert(1);
 }
 .navbar-cla .logo-container-nav { 
     display: none; /* Escondida por padrão, JS mostra */
@@ -168,40 +166,69 @@ body {
 
 /* --- Seção Hero (Página Inicial) --- */
 .hero-section {
-    height: 100vh; /* Faz a seção ocupar a altura total da tela */
-    background-size: cover;
-    background-position: center center;
-    display: flex;
+    height: 100vh;
+    position: relative; /* Necessário para o posicionamento absoluto dos filhos */
+    overflow: hidden; /* Esconde partes do vídeo que excederem a seção */
+    display: flex; /* Para alinhar o .hero-content-container */
     align-items: center;
-    position: relative;
     color: var(--cla-text-light);
-    /* padding: 3rem 0; Removido, pois height e align-items cuidam do posicionamento */
+    /* Não precisa de padding aqui, pois o .hero-content-container cuidará disso */
 }
-.hero-section::before { 
+
+.video-background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Atrás de tudo */
+}
+
+#bgVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que o vídeo cubra toda a área, cortando se necessário */
+    /* Para centralizar o vídeo se object-fit: cover cortar: */
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    /* min-width: 100%; */ /* Garante que cubra mesmo se as proporções não baterem */
+    /* min-height: 100%; */
+}
+
+.hero-overlay { /* Overlay escuro sobre o vídeo */
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0, 0, 0, 0.55); /* Overlay um pouco mais escuro */
-    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.55); /* Ajuste a opacidade do overlay */
+    z-index: 1; /* Acima do vídeo, abaixo do conteúdo */
 }
-.hero-section .container {
-    position: relative;
+
+.hero-content-container { /* Container para o texto e botão sobre o vídeo */
+    position: relative; /* Para ficar acima do overlay e vídeo */
     z-index: 2;
-    padding-top: 70px; /* ### ADICIONADO: Espaço para a navbar transparente não sobrepor o texto do hero ### */
-                       /* Ajuste este valor se a altura da navbar transparente for diferente */
+    width: 100%; /* Ocupa a largura do .container do Bootstrap pai */
+    padding-top: 70px; /* Espaço para a navbar transparente */
+     /* Herda do .container do Bootstrap, que já tem padding lateral */
 }
+
 .hero-section h1 {
-    font-size: 3.2rem; /* Ajuste conforme necessário */
-    font-weight: 800; /* Mais peso para o título principal */
+    font-size: 3.2rem;
+    font-weight: 800;
     margin-bottom: 1.5rem;
     line-height: 1.2;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Sombra leve no texto para legibilidade */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra mais forte para texto sobre vídeo */
 }
 .hero-section p.lead {
-    font-size: 1.3rem; /* Ajuste conforme necessário */
+    font-size: 1.3rem;
     margin-bottom: 2.5rem;
     font-weight: 300;
-    max-width: 600px; /* Limita a largura do parágrafo na direita */
+    /* max-width: 600px;  A coluna do Bootstrap já deve limitar */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
 }
 .btn-cla-accent {
     background-color: var(--cla-accent);
@@ -292,7 +319,6 @@ body {
 }
 .footer-logo {
     max-height: 50px;
-    filter: brightness(0) invert(1);
 }
 .footer-site h5 {
     color: var(--cla-accent);
@@ -468,6 +494,27 @@ body {
 .form-card-styling .custom-invalid-feedback,
 .form-card-styling .group-invalid-feedback {
      color: #f8d7da; /* Um vermelho mais claro que contraste com o azul */
+}
+
+
+/* static/css/site_style.css */
+/* ... (seus estilos existentes) ... */
+
+/* --- Seção Contratar Agora (Página de Serviços) --- */
+.contratar-agora-section {
+    /* background-color: #f0f4f8; /* Um fundo levemente diferente se desejar */
+    /* padding-top: 3rem; Adicionado no HTML com pt-4 */
+    /* padding-bottom: 3rem; */
+}
+
+
+.btn-cla-accent.contratar-btn-animation {
+    /* Adicionar alguma animação sutil ao botão se desejar */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.btn-cla-accent.contratar-btn-animation:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(var(--cla-accent-rgb), 0.3); /* Usar a cor de destaque */
 }
 /* O botão já usa .btn-cla-accent, que deve funcionar bem */
 

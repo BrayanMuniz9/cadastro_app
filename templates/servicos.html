@@ -10,6 +10,7 @@
         <p class="lead page-subtitle">Tecnologia e tranquilidade para o seu dia a dia.</p>
     </div>
 </section>
+
 <!-- Seção 1: Sobre o Rastreador e Benefícios -->
 <section class="section-padding">
     <div class="container">
@@ -17,7 +18,8 @@
             <div class="col-lg-6">
                 <h2 class="section-title text-start mb-3">Rastreamento Inteligente CLA</h2>
                 <p class="text-muted mb-3">
-Com a C.L.A, você tem rastreamento preciso, bloqueio à distância e monitoramento constante, tudo para garantir sua tranquilidade e proteger o que é seu. Não é só sobre tecnologia, é sobre confiança todos os dias na palma da sua mão. ✋                </p>
+                    Com a C.L.A, você tem rastreamento preciso, bloqueio à distância e monitoramento constante, tudo para garantir sua tranquilidade e proteger o que é seu. Não é só sobre tecnologia, é sobre confiança todos os dias na palma da sua mão. ✋
+                </p>
                 <p class="text-muted mb-3">
                     Saber o que está acontecendo nas ruas é fundamental para garantir o bem-estar de todos. A segurança vai além de apenas proteger o veículo, envolve também o comportamento na direção. Com a C.L.A, você tem uma visão clara de tudo o que acontece, em tempo real.
                 </p>
@@ -47,6 +49,7 @@ Com a C.L.A, você tem rastreamento preciso, bloqueio à distância e monitorame
         </div>
     </div>
 </section>
+
 <hr class="container my-5">
 
 <!-- Seção 2: Processo de Instalação -->
@@ -99,9 +102,20 @@ Com a C.L.A, você tem rastreamento preciso, bloqueio à distância e monitorame
                 </div>
             </div>
         </div>
-        <div class="text-center mt-5">
-            <a href="{{ url_for('contato') }}" class="btn btn-cla-accent btn-lg">Quero Contratar Agora</a>
-        </div>
+    </div> {# Fechamento do container da seção de instalação #}
+</section> {# Fechamento da seção de instalação #}
+
+<!-- ### MODIFICADO: Seção Final "Quero Contratar Agora" com Background Image ### -->
+<section class="section-padding section-bg-image text-center cta-final-section" style="background-image: url('{{ url_for('static', filename='images/contratar_agora_img.png') }}');">
+    <div class="container">
+        <h2 class="section-title mb-4" style="font-size: 2.8rem;">Segurança que cabe no seu bolso!</h2>
+        <p class="lead mb-5" style="color: var(--cla-text-light); max-width: 700px; margin-left: auto; margin-right: auto;">
+            Não espere mais. Proteja seu veículo com a melhor tecnologia de rastreamento do mercado a partir de <b>R$60/mês.</b>
+        </p>
+        <a href="{{ url_for('contato') }}" class="btn btn-cla-accent btn-lg px-5 py-3 contratar-btn-animation">
+            <i class="fas fa-shield-alt me-2"></i>Quero Contratar Agora
+        </a>
     </div>
 </section>
+<!-- ### FIM DA MODIFICAÇÃO ### -->
 {% endblock %}

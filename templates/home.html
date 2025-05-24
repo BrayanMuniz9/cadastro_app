@@ -4,10 +4,24 @@
 
 {% block content %}
 <!-- Seção Hero (Parte 1) -->
-<section class="hero-section text-center text-md-start" style="background-image: url('{{ url_for('static', filename='images/background_hero.jpg') }}');">
-    <div class="container">
+<section class="hero-section text-center text-md-start"> {# Removido o style de background-image daqui #}
+    
+    <!-- ### ADICIONADO: Vídeo de Background ### -->
+    <div class="video-background-container">
+        <video playsinline autoplay muted loop poster="{{ url_for('static', filename='images/background_hero.jpg') }}" id="bgVideo">
+            <source src="{{ url_for('static', filename='videos/hero_background.mp4') }}" type="video/mp4">
+            <!-- Opcional: Adicione outros formatos para compatibilidade -->
+            <!-- <source src="{{ url_for('static', filename='videos/hero_background.webm') }}" type="video/webm"> -->
+            Seu navegador não suporta a tag de vídeo.
+        </video>
+    </div>
+    <!-- ### FIM DA ADIÇÃO DO VÍDEO ### -->
+
+    <div class="hero-overlay"></div> {# Overlay separado para o vídeo #}
+
+    <div class="container hero-content-container"> {# Container para o conteúdo sobre o vídeo #}
         <div class="row align-items-center">
-            <div class="col-md-6 offset-md-6">
+            <div class="col-md-7 offset-md-5 text-end"> {# Ajustado para alinhar à direita e dar mais espaço #}
                 <h1 class="display-4">Monitoramento 24h por dia a um clique de distância</h1>
                 <p class="lead my-4">
                     Rastreie o seu veículo através do app direto no celular. Segurança e tranquilidade na palma da sua mão.
