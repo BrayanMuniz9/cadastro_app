@@ -470,6 +470,5 @@ def internal_server_error(e):
     return render_template('500.html'), 500
 
 if __name__ == '__main__':
-    # Para desenvolvimento local, debug=True é útil.
-    # Certifique-se de que debug=False para qualquer implantação de produção.
-    app.run(host='0.0.0.0', port=5001, debug=True)
+
+    pass
